@@ -1,0 +1,21 @@
+/**
+* main.css
+* css for chaos
+*/
+
+body,html {
+	margin: 0;
+	padding: 0;
+	font-size: 10pt;
+	color: #a1a1a1;
+	background-color: #3c3c3c; 
+	}
+	
+header {
+	height: 3em;
+	background-color: #2a2a2a;
+	}
+	
+header nav {
+	display: inline-block;
+	}

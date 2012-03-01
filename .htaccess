@@ -1,0 +1,11 @@
+RewriteEngine on
+RewriteBase /labs/chaos/
+
+RewriteRule ^([a-z\_]+)$ index.php?p=$1 [L]
+RewriteCond $1 !^(index\.php|js|css|imagese|robots\.txt|favicon\.ico) 
+RewriteRule ^(.*)$ index.php?p=$1 [L] 
+
+#   RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteRule ^(.+)$ index.php?p=$1 [L]
+
