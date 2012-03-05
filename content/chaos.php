@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title> c h A o S (:=X <?=$page?></title>
+<title> chAoS.cx :: <?=$page?></title>
 <meta charset="utf-8" /> 
 <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
 <link rel="alternate" type="application/rss+xml" title="last" href="?rss" />
@@ -29,10 +29,13 @@ alert("Hacemos drag");
 </head>
 <body>
 <header>
-chaos.cx
-<nav><a href="upload.php" title="<?=_("upload")?>"><?=_("upload")?></a></nav>
-<nav><a href="create.php" title="<?=_("create_chaos")?>"><?=_("create_chaos")?></a></nav>
-<nav><a href="change_style.php" title="<?=_("change_style")?>"><?=_("change_style")?></a></nav>
+<nav>
+<a href="/" title="<?=_("home")?>" id="logo"><img src="images/chaoslogo.jpg" alt="<?=_("chaos logo")?>" title="<?=_("chaos logo")?>" border="0" /></a>
+<a href="upload.php" title="<?=_("upload")?>"><img src="images/upload.png" alt="<?=_("Upload content")?>" title="<?=_("Upload content")?>" border="0" /><span><?=_("Upload")?></span></a>
+<a href="create.php" title="<?=_("create_chaos")?>"><img src="images/add.png" alt="<?=_("create new chaos")?>" title="<?=_("create new chaos")?>" border="0" /><span><?=_("Create new chaos")?></span></a>
+<a href="config.php" title="<?=_("create_chaos")?>"><img src="images/config.png" alt="<?=_("Config chaos")?>" title="<?=_("Config chaos")?>" border="0" /><span><?=_("Config chaos")?></span></a>
+<input type="text" /><a href="change_style.php" title="<?=_("change_style")?>"><img src="images/search.png" alt="<?=_("search")?>" title="<?=_("search")?>" border="0" /></a>
+</nav>
 </header>
 <div id="content">
 <div id="div1" ondrop="drop(event)"
