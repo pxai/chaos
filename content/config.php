@@ -35,6 +35,7 @@ alert("Hacemos drag");
 <?php include_once "content/nav.php"; ?>
 </header>
 <div id="content">
+config
 <div id="div1" ondrop="drop(event)"
 ondragover="allowDrop(event)"></div>
 <img id="drag1" src="img_logo.gif" draggable="true"

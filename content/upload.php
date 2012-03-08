@@ -6,9 +6,6 @@
 <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" /> 
 <link rel="alternate" type="application/rss+xml" title="last" href="?rss" />
 <link rel="shortcut icon" href="favicon.png" sizes="16x16"/>
-<?php
-	include_once "content/jquery.php";
-?>
 <script type="text/javascript">
 function allowDrop(ev)
 {
@@ -35,6 +32,7 @@ alert("Hacemos drag");
 <?php include_once "content/nav.php"; ?>
 </header>
 <div id="content">
+upload
 <div id="div1" ondrop="drop(event)"
 ondragover="allowDrop(event)"></div>
 <img id="drag1" src="img_logo.gif" draggable="true"

@@ -5,11 +5,16 @@
 */
 $debug = "";
 
+
 include_once "config.php";
-include_once "lib/db.php";
+include_once "lib/autoload.php";
+
+
+$db = new LibDb();
+$link = new LibLink();
 
 // List of allowed actions
-$allowed = array("chaos","footer");
+$allowed = array("chaos","footer","create","config","upload");
 
 // get requested page, safe way in php5.2
 $page = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_STRING);
