@@ -1,8 +1,3 @@
-<?php
-	if (!$chaos->checkExists($chaosname)) {
-		header("Location: index.php");
-	}
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -43,7 +38,6 @@ alert("Hacemos drag");
 ondragover="allowDrop(event)"></div>
 <img id="drag1" src="img_logo.gif" draggable="true"
 ondragstart="drag(event)" width="336" height="69" alt="Drag and drop" />
-This is personal chaos <?=$chaosname?>
 <footer>
 <?php
 	include_once "content/footer.php";
