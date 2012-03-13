@@ -1,6 +1,10 @@
 <?php
 	if (!$chaos->checkExists($chaosname)) {
 		header("Location: index.php");
+	} else {
+		$currentbg = $chaos->current["bgcolor"];
+		$currentfg = $chaos->current["fgcolor"];
+		$currentimage = $chaos->current["bgimage"];
 	}
 ?>
 <!DOCTYPE HTML>

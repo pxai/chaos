@@ -32,20 +32,24 @@ class LibDb {
 		}
 	}
 
-public function query($sql) {
-	$rows = array();
-	$result = mysql_query($sql) or die("Error: " . mysql_error());
-	while ($r = mysql_fetch_assoc($result)) {
-		$rows[] = $r;
-	}		
+	public function query($sql) {
+		$rows = array();
+		$result = mysql_query($sql) or die("Error: " . mysql_error());
+		while ($r = mysql_fetch_assoc($result)) {
+			$rows[] = $r;
+		}		
 	
-	mysql_free_result($result);
-	return $rows;
-}
+		mysql_free_result($result);
+		return $rows;
+	}	
 
-public function nonquery($sql) {
-	$result = mysql_query($sql) or die("Error: " . mysql_error());
-	return $result;
+	public function nonquery($sql) {
+		$result = mysql_query($sql) or die("Error: " . mysql_error());
+		return $result;
+	}
+
+	public function insert_id () {
+			return mysql_insert_id();
 	}
 
 }

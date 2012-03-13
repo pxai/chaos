@@ -3,7 +3,19 @@
 	* css owned by the chaos
 	*
 	*/
+
 	header("Content-type: text/css");
+	$chaosname = filter_input(INPUT_GET, 'c', FILTER_SANITIZE_STRING);
+	// We load chaos data
+	if (preg_match($config["rx-chaosname"],$chaosname) && $chaos->checkExists($chaosname)) {
+		$currentbg = $chaos->current["bgcolor"];
+		$currentfg = $chaos->current["fgcolor"];
+		$currentimage = $chaos->current["currentimage"];
+	}
+	// We put chaos colors or default
+	$bgcolor = (preg_match("/^[0-9a-zA-Z]{6}$/",$currentbg))?$currentbg:$config["bgcolor"];
+	$fgcolor = (preg_match("/^[0-9a-zA-Z]{6}$/",$currentfg))?$currentfg:$config["fgcolor"];
+	$bgimage = ($currentimage)?$currentbg:$config["bgimage"];
 ?>
 /**
 * main.css
@@ -14,8 +26,8 @@ body,html {
 	margin: 0;
 	padding: 0;
 	font-size: 10pt;
-	color: #a1a1a1;
-	background-color: #666666; 
+	color: #<?=$fgcolor?>;
+	background-color: #<?=$bgcolor?>; 
 	}
 	
 header {
@@ -45,6 +57,10 @@ header nav a span {
 header nav a:hover span {
 	color: white;
 	}
+header input {
+	border: 0;
+	height: 1.5em;
+}
 #chaoslink {
 	text-decoration: none;
 	font-size: 2em;
@@ -52,12 +68,44 @@ header nav a:hover span {
 	padding: 0.3em;
 	color: #666666;
 	}
+a {
+	color: #<?=$fgcolor?>;
+	}
 	
 /*** dialogs *****/
 .dialog {
 display: none;
-
+width: 20em;
 }
+
+ .signform {
+ 	width: 40em;
+ 	margin: 10em auto 0 auto;
+ 	}
+ 
+  .signform fieldset {
+ 	border: 0.1em solid gray;
+ 	}
+ 
+ .signform label, .signform input  {
+ 		font-size: 14pt;
+ 		height: 2em;
+ 	}
+
+ 	
+ .signform input {
+		border: none; 
+		margin-bottom: 1em;	
+ 	}
+
+ .signform input:focus {
+		 	background-color: lightgreen;
+ 	}
+
+ 	
+ .formtitle {
+ 		font-size: 18pt;
+ 	}
 
 #uploadbutton {
  display: none;
@@ -71,5 +119,5 @@ display: none;
 
 #uploadtype li{
  display: inline-block;
- margin-left: 1em;
+ margin-right: 1em;
 }

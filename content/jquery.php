@@ -4,6 +4,6 @@
 <script type="text/javascript" src="js/jquery.autocomplete.js"></script>
 <script type="text/javascript" src="js/fileuploader.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/create.js"></script>
-<script type="text/javascript" src="js/config.js"></script>
-<script type="text/javascript" src="js/upload.js"></script>
+<script type="text/javascript" src="js/create.php"></script>
+<script type="text/javascript" src="js/config.php"></script>
+<script type="text/javascript" src="js/upload.php"></script>

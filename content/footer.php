@@ -6,6 +6,6 @@
 
 if ($config["debug"]) {
 	echo $debug;
-	echo sprintf(_("Total queries: %s"),$totalqueries);
+	//echo sprintf(_("Total queries: %s"),$totalqueries);
 	}
 ?>

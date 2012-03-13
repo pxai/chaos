@@ -1,3 +1,10 @@
+<?php
+	if (!$chaos->checkExists($chaosname)) {
+		$currentbg = $chaos->current["bgcolor"];
+		$currentfg = $chaos->current["fgcolor"];
+		$currentimage = $chaos->current["bgimage"];
+	}
+?>
 <!DOCTYPE HTML>
 <html>
 <head>

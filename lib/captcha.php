@@ -34,7 +34,7 @@ class LibCaptcha {
 		$this->db->nonquery("insert into captcha (id,captcha) values ('".$captchakey."','".$captchauser."')");
 
 		$html .= '<label for="captcha">'._("Solve this captcha").'</label><br />';
-		$html .= '<img src="index?p=captcha&key='.$captchakey.'" alt="'._("Solve this captcha").'" title="'._("Solve this captcha").'" />';
+		$html .= '<img src="index.php?p=captcha&key='.$captchakey.'" alt="'._("Solve this captcha").'" title="'._("Solve this captcha").'" />';
 		$html .= '<input type="hidden" name="captchakey" id="captchakey" value="'.$captchakey.'" /><span id="captchalog"></span><br />';
 		$html .= '<input type="text" name="captcha" id="captcha" value="" /><span id="captchalog"></span><br />';
 		
@@ -47,10 +47,10 @@ class LibCaptcha {
 	* captchastring
 	* generates a captcha string
 	*/
-	private function captchastring ($long = 8) {
+	public function captchastring ($long = 8) {
 		$result = "";
 		for ($i=0;$i<$long;$i++)
-			$result .= substr($this->chars,rand(0,strlen($this->chars)),1);
+			$result .= substr($this->chars,rand(0,(strlen($this->chars)-1)),1);
 			
 		return $result;
 	}
@@ -67,13 +67,18 @@ class LibCaptcha {
 		$reg = $this->db->query("select * from captcha where id='".$key."' and captcha='".$string."'");
 		$isvalid = ($reg[0]["captcha"] == $string);
 
-		// drop it if is valid
-		if ($isvalid) { $this->db->nonquery("delete from captcha where id='".$key."'");}
 				
 		return $isvalid;
 		
 	}
 
+	/**
+	* drop
+	* deletes captcha from db
+	*/
+	public function drop ($key) {
+		$this->db->nonquery("delete from captcha where id='".$key."'");
+	}
 	
 	/**
 	* create
