@@ -42,9 +42,14 @@ alert("Hacemos drag");
 <?php include_once "content/config.php"; ?>
 <?php include_once "content/upload.php"; ?>
 <div id="div1" ondrop="drop(event)"
-ondragover="allowDrop(event)"></div>
-<img id="drag1" src="img_logo.gif" draggable="true"
-ondragstart="drag(event)" width="336" height="69" alt="Drag and drop" />
+ondragover="allowDrop(event)">
+<div id="items">
+<?php 
+	echo $item->getLasts();
+?>
+</div>
+</div>
+
 <footer>
 <?php
 	include_once "content/footer.php";

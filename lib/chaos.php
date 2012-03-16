@@ -25,12 +25,12 @@ class LibChaos {
 	* create
 	* Creates a captcha image
 	*/
-	public function createChaos ($chaosname,$privatechaos) {
+	public function createChaos ($chaosname,$privatechaos,$anonymouschaos,$securityquestion,$securityanswer) {
 		$bgcolor = $this->randomColor();
 		$fgcolor = $this->randomColor();
 		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:0;
 		
-		$sql = "insert into chaos (name, private, bgcolor, fgcolor,iduser) values ('".$chaosname."',".$privatechaos.",'".$bgcolor."','".$fgcolor."',".$iduser.")";
+		$sql = "insert into chaos (name, private, anonymous, bgcolor, fgcolor, question, answer,iduser) values ('".$chaosname."',".$privatechaos.",".$anonymouschaos .",'".$bgcolor."','".$fgcolor."','".$securityquestion."','".$securityanswer."',".$iduser.")";
 		
 		return $this->db->nonquery($sql);
 	}
@@ -47,6 +47,9 @@ class LibChaos {
 		$exists = ($reg[0]["name"] == $chaosname);			
 		return $exists;
 	}
+	
+	
+
 	
 	/**
 	* randomColor

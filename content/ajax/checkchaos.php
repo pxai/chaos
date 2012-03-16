@@ -11,12 +11,14 @@ $sql = "";
 $exist = false;
 $result = 0;
 
-$_POST["chaosname"] = strtolower($_POST["chaosname"]);
+if ($_POST["chaosname"]) {
+	$_POST["chaosname"] = strtolower($_POST["chaosname"]);
 	
-	if ($chaos->checkExists($_POST["chaosname"])) {
-		echo '{"Result" : "Exists"}';
-	} else {
-		echo '{"Result" : "Free"}';
-	}
-
+		if ($chaos->checkExists($_POST["chaosname"])) {
+			echo '{"Result" : "Exists"}';
+		} else {
+			echo '{"Result" : "Free"}';
+		}
+} 
+	
 ?>
