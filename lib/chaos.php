@@ -25,16 +25,35 @@ class LibChaos {
 	* create
 	* Creates a captcha image
 	*/
-	public function createChaos ($chaosname,$privatechaos) {
+	public function createChaos ($chaosname,$privatechaos,$anonymouschaos,$securityquestion,$securityanswer) {
 		$bgcolor = $this->randomColor();
 		$fgcolor = $this->randomColor();
 		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:0;
 		
-		$sql = "insert into chaos (name, private, bgcolor, fgcolor,iduser) values ('".$chaosname."',".$privatechaos.",'".$bgcolor."','".$fgcolor."',".$iduser.")";
+		$sql = "insert into chaos (name, private, anonymous, bgcolor, fgcolor, question, answer,iduser) values ('".$chaosname."',".$privatechaos.",".$anonymouschaos .",'".$bgcolor."','".$fgcolor."','".$securityquestion."','".$securityanswer."',".$iduser.")";
 		
 		return $this->db->nonquery($sql);
 	}
 
+	/**
+	* configChaos
+	* Changes chaos configuration a captcha image
+	*/
+	public function configChaos ($idchaos,$bgcolor,$fgcolor,$bgimage,$algorythm) {
+		if ($idchaos!="" || $idchaos) {
+			$user = $this->db->query("select * from chaos where id=".$idchaos);
+			$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:0;
+			
+				if ($iduser == $user[0]["iduser"]) {
+					$sqlupdate = "update chaos set bgcolor='".$bgcolor."',fgcolor='".$fgcolor."', bgimage='".$bgimage."',algorythm='".$algorythm."' where id=".$idchaos;
+					$result = $this->db->query($sqlupdate);
+			
+			}
+		}	
+		
+		return $result;
+	}
+	
 	/**
 	* checkExists
 	* Checks if a chaos exists or not
@@ -47,6 +66,18 @@ class LibChaos {
 		$exists = ($reg[0]["name"] == $chaosname);			
 		return $exists;
 	}
+	
+	/**
+	* getChaos
+	* returns chaos info
+	*/
+	public function getChaos ($idchaos) {
+		$exists = false;
+		$reg = $this->db->query("select * from chaos where id='".$idchaos."'");
+		$this->current = $reg[0];
+		return count($reg);
+	}
+
 	
 	/**
 	* randomColor

@@ -25,11 +25,11 @@ class LibCaptcha {
 	* create
 	* Creates a captcha image
 	*/
-	public function create () {
+	public function create ($long=8) {
 		$html = "";
 		
-		$captchakey = $this->captchastring();
-		$captchauser =   $this->captchastring();
+		$captchakey = $this->captchastring($long);
+		$captchauser =   $this->captchastring($long);
 		
 		$this->db->nonquery("insert into captcha (id,captcha) values ('".$captchakey."','".$captchauser."')");
 

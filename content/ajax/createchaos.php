@@ -24,10 +24,22 @@ if (preg_match($config["rx-chaosname"],$_POST["chaosname"]) ) {
 		$errors .= ' "chaos" : "exists",';
 	}
 
+	// if user is not logged, force anonymous.
+	$_POST["anonymouschaos"] = (!$user->logged)?1:$_POST["anonymouschaos"];
+	$needsquestion = (!$user->logged || $_POST["anonymouschaos"]==1);
+	
+	if ($needsquestion && trim($_POST["securityquestion"]) == "") {
+		$errors .= ' "securityquestion" : "incorrect",';
+	}
+
+	if ($needsquestion && trim($_POST["securityanswer"]) == "") {
+		$errors .= ' "securityanswer" : "incorrect",';
+	}
+
 	$errors = rtrim($errors,",");
 	
 	if (!$errors) {
-		$result = $chaos->createChaos($_POST["chaosname"],$_POST["privatechaos"]);
+		$result = $chaos->createChaos($_POST["chaosname"],$_POST["privatechaos"],$_POST["anonymouschaos"],$_POST["securityquestion"],$_POST["securityanswer"]);
 	}
 } else {
 		$errors .= ' "name" : "incorrect"';

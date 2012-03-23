@@ -1,13 +1,13 @@
 <div id="dialogupload" class="dialog">
 	<form>
 	<fieldset>
-		<span id="createlog"></span>
+		<span id="uploadlog" class="log"></span>
 		<input type="hidden" name="chaosid" id="chaosid" value="<?=$chaos->current["id"]?>" />
 		<input type="hidden" name="chaosuploadcode" id="chaosuploadcode" value="" />
 		<label for="uploadname"><?=_("Name")?></label><br />
-		<input type="text" name="uploadname" id="uploadname" value="" size="20" /><span id="uploadnamelog"></span><br />
+		<input type="text" name="uploadname" id="uploadname" value="" size="20" /><span id="uploadnamelog" class="log"></span><br />
 		<label for="tags"><?=_("Tags")?></label><br />
-		<input type="text" name="uploadtags" id="uploadtags" value="" size="30" /><span id="uploadtagslog"></span><br />
+		<input type="text" name="uploadtags" id="uploadtags" value="" size="30" /><span id="uploadtagslog" class="log"></span><br />
 		<label for="uploadtype"><?=_("Upload type")?><span id="uploadtype"></span></label><br />
 		<ul id="uploadtype">
 		<?=$item->loadType()?>

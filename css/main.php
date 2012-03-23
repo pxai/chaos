@@ -28,17 +28,26 @@ body,html {
 	font-size: 10pt;
 	color: #<?=$fgcolor?>;
 	background-color: #<?=$bgcolor?>; 
+	background-image: url(<?=$bgimage?>);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
 	}
 	
-header {
+header, div#header {
 	height: 3em;
 	background-color: #2a2a2a;
 	}
+
+span.log {
+color: orange;
+}
 
 #logo {
 	width: 125px;
 	float: left;
 	}
+
 header nav {
 	display: block;
 	float: right;
@@ -71,16 +80,81 @@ header input {
 a {
 	color: #<?=$fgcolor?>;
 	}
-	
+input {
+	padding-left: 0.3em;
+	padding-top: 0.2em;
+	border-radius: 0.4em;
+}
+fieldset{
+	border-radius:1em;
+	background-color: #777;
+}
+/*********************
+* item
+**********************/
+.item {
+	width: 40em;
+	background-color: white;
+	margin: 1em;
+	padding: 0.5em;
+	color: black;
+	border-radius:0.8em;
+}
+
+.item a {
+	text-decoration: none;
+	color: black;
+}
+
+.item a:hover {
+	text-decoration: underline;
+}
+
+.item-name a {
+	font-size: 2em;
+	color: #6b8e23;
+}
+
+.item-details {
+	font-size: 0.8em;
+	color: gray;
+}
+
+.item-link {
+	clear: both;
+}
+
+.item-date {
+}
+
+.item-type {
+	float: left;
+	width: 4em;
+}
+
+.item-tags {
+	clear: both;
+	font-size: 0.8em;
+	color: gray;
+}
+
 /*** dialogs *****/
 .dialog {
 display: none;
 width: 20em;
+border-radius:1em;
 }
 
+#securityquestiondiv {
+<?php if ($user->logged) { ?>
+	display: none;
+<?php } else { ?>
+	display: block;
+<?php } ?>
+}
  .signform {
  	width: 40em;
- 	margin: 10em auto 0 auto;
+ 	margin: 4em auto 0 auto;
  	}
  
   .signform fieldset {

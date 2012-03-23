@@ -13,10 +13,11 @@ include_once "lib/autoload.php";
 
 
 $db = new LibDb($config);
+$util = new LibUtil($db,$config);
 $link = new LibLink($config,$db);
 $captcha = new LibCaptcha($config,$db);
 $chaos = new LibChaos($config,$db);
-$item = new LibItem($config,$db);
+$item = new LibItem($config,$db,$util);
 $tags = new LibTags($config,$db);
 $sec = new LibSec($config,$db);
 $user = new LibUser($config,$db,$sec);
@@ -29,7 +30,7 @@ if ($_SESSION["iduser"]) { $user->logged = true; }
 
 
 // List of allowed actions
-$allowed = array("chaos","st/css/main.php","signin","signout","signup","recovery","profile","footer","ajax/createcaptcha","ajax/upload","ajax/uploadchaoscode","ajax/createchaos","ajax/gettags","captcha","config","upload");
+$allowed = array("chaos","st/css/main.php","rss","signin","signout","signup","recovery","profile","footer","ajax/item","ajax/dragdrop","ajax/createcaptcha","ajax/upload","ajax/uploadchaoscode","ajax/createchaos","ajax/gettags","ajax/config","captcha","config","upload");
 
 // get requested page, safe way in php5.2
 $page = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_STRING);

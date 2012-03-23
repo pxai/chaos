@@ -36,17 +36,21 @@ alert("Hacemos drag");
 </script>
 </head>
 <body>
-<header>
+<header><div id="header">
 <?php include_once "content/nav.php"; ?>
-</header>
+</div></header>
 <div id="content">
 <?php include_once "content/create.php"; ?>
 <?php include_once "content/config.php"; ?>
 <?php include_once "content/upload.php"; ?>
 <div id="div1" ondrop="drop(event)"
-ondragover="allowDrop(event)"></div>
-<img id="drag1" src="img_logo.gif" draggable="true"
-ondragstart="drag(event)" width="336" height="69" alt="Drag and drop" />
+ondragover="allowDrop(event)">
+<div id="items">
+<?php 
+	echo $item->getLasts(10,$chaos->current["id"]);
+?>
+</div>
+</div>
 This is personal chaos <?=$chaosname?>
 <footer>
 <?php

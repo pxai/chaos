@@ -17,13 +17,17 @@ $config["debug"] = true;
 $config["language"] = "en_EN.UTF-8";
 $config["default"] = "content/default.php";
 $config["email"] = "chaos@chaos.cx";
+$config["upload_dir"] = "./upload/";
+$config["upload_size"] = "10241114";
 
 /*************************************
 * basic appearence
 **************************************/
 $config["bgcolor"] = "666";
 $config["fgcolor"] = "a1a1a1";
-$config["bgimage"] = "";
+$config["bgimage"] = "images/vortex.gif";
+// js algorythms to show info
+$config["algorythms"] = array("none");
 
 /***********************************
 * jquery urls
@@ -32,7 +36,7 @@ $config["bgimage"] = "";
 ************************************/
 $config["jquery"] = "js/jquery.js";
 $config["jquery-ui"] = "js/jquery-ui.js";
-$config["jquery-ui-css"] = "css/ui-lightness/jquery-ui-1.8.6.custom.css";
+$config["jquery-ui-css"] = "css/vader/jquery-ui-1.8.18.custom.css";
 //$config["jquery"] = "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js";
 //$config["jquery-ui"] = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js";
 //$config["jquery-ui-css"] = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-darkness/jquery-ui.css";
