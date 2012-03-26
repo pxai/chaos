@@ -117,12 +117,29 @@ $.ajax({
 
 
 </script>
+<<<<<<< HEAD
+=======
+</head>
+<body>
+<header>
+<?php include_once "content/nav.php"; ?>
+</header>
+<div id="content">
+<?php include_once "content/create.php"; ?>
+<?php include_once "content/config.php"; ?>
+<?php include_once "content/upload.php"; ?>
+<div id="div1" ondrop="drop(event)"
+ondragover="allowDrop(event)">
+>>>>>>> 23ebc3b6460d4d74a628b40ecb44aa55a7188847
 <div id="items">
 <?php 
 	echo $item->getLasts();
 ?>
 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 23ebc3b6460d4d74a628b40ecb44aa55a7188847
 </div>
 
 <footer>

@@ -67,6 +67,9 @@ class LibChaos {
 		return $exists;
 	}
 	
+	
+
+	
 	/**
 	* getChaos
 	* returns chaos info

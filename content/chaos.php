@@ -47,7 +47,11 @@ alert("Hacemos drag");
 ondragover="allowDrop(event)">
 <div id="items">
 <?php 
+<<<<<<< HEAD
 	echo $item->getLasts(10,$chaos->current["id"]);
+=======
+	echo $item->getLasts();
+>>>>>>> 23ebc3b6460d4d74a628b40ecb44aa55a7188847
 ?>
 </div>
 </div>

@@ -89,15 +89,22 @@ fieldset{
 	border-radius:1em;
 	background-color: #777;
 }
+<<<<<<< HEAD
 
 .required {
 	font-weight: bolder;
 }
+=======
+>>>>>>> 23ebc3b6460d4d74a628b40ecb44aa55a7188847
 /*********************
 * item
 **********************/
 .item {
+<<<<<<< HEAD
 	width: 40em;
+=======
+	width: 20em;
+>>>>>>> 23ebc3b6460d4d74a628b40ecb44aa55a7188847
 	background-color: white;
 	margin: 1em;
 	padding: 0.5em;
@@ -107,6 +114,7 @@ fieldset{
 
 .item a {
 	text-decoration: none;
+<<<<<<< HEAD
 	color: black;
 }
 
@@ -117,6 +125,17 @@ fieldset{
 .item-name a {
 	font-size: 2em;
 	color: #6b8e23;
+=======
+	color: black;	 
+}
+
+.item a:hover {
+}
+
+.item-name {
+	font-size: 2em;
+	color: black;
+>>>>>>> 23ebc3b6460d4d74a628b40ecb44aa55a7188847
 }
 
 .item-details {
