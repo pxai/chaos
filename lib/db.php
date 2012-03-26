@@ -34,7 +34,7 @@ class LibDb {
 
 	public function query($sql) {
 		$rows = array();
-		$result = mysql_query($sql) or die("Error: " . mysql_error());
+		$result = mysql_query($sql) or die("Error: $sql :" . mysql_error());
 		while ($r = mysql_fetch_assoc($result)) {
 			$rows[] = $r;
 		}		
@@ -44,7 +44,7 @@ class LibDb {
 	}	
 
 	public function nonquery($sql) {
-		$result = mysql_query($sql) or die("Error: " . mysql_error());
+		$result = mysql_query($sql) or die("Error: $sql :" . mysql_error());
 		return $result;
 	}
 

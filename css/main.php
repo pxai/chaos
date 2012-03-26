@@ -89,6 +89,10 @@ fieldset{
 	border-radius:1em;
 	background-color: #777;
 }
+
+.required {
+	font-weight: bolder;
+}
 /*********************
 * item
 **********************/
