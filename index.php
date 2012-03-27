@@ -30,11 +30,7 @@ if ($_SESSION["iduser"]) { $user->logged = true; }
 
 
 // List of allowed actions
-<<<<<<< HEAD
 $allowed = array("chaos","st/css/main.php","rss","signin","signout","signup","recovery","profile","footer","ajax/item","ajax/dragdrop","ajax/createcaptcha","ajax/upload","ajax/uploadchaoscode","ajax/createchaos","ajax/gettags","ajax/config","captcha","config","upload");
-=======
-$allowed = array("chaos","st/css/main.php","signin","signout","signup","recovery","profile","footer","ajax/item","ajax/createcaptcha","ajax/upload","ajax/uploadchaoscode","ajax/createchaos","ajax/gettags","captcha","config","upload");
->>>>>>> 23ebc3b6460d4d74a628b40ecb44aa55a7188847
 
 // get requested page, safe way in php5.2
 $page = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_STRING);

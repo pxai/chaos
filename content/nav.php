@@ -12,6 +12,7 @@
 		<?php
 		}
 ?>
+<div id="nav">
 <nav>
 <a href="<?=$link->url("upload")?>" title="<?=_("upload")?>" id="upload"><img src="images/upload.png" alt="<?=_("Upload content")?>" title="<?=_("Upload content")?>" border="0" /><span><?=_("Upload")?></span></a>
 <a href="<?=$link->url("create")?>" title="<?=_("Create chaos")?>" id="createchaos"><img src="images/add.png" alt="<?=_("create new chaos")?>" title="<?=_("create new chaos")?>" border="0" /><span><?=_("Create new chaos")?></span></a>
@@ -21,3 +22,4 @@
 <?php } else { ?><a href="<?=$link->url("signin")?>" title="<?=_("Sign in")?>" id="signinchaos"><img src="images/user.png" alt="<?=_("Sign in")?>" title="<?=_("Sign in")?>" border="0" /><span><?=_("Sign in")?></span></a>
 <?php } ?>
 </nav>
+</div>
