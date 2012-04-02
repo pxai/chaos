@@ -1,11 +1,12 @@
-<?php
-/**
-* footer.php
-*
-*/
+</div>
 
-if ($config["debug"]) {
+<footer>
+<?php
+	if ($config["debug"]) {
 	echo $debug;
 	//echo sprintf(_("Total queries: %s"),$totalqueries);
 	}
 ?>
+</footer>
+</body>
+</html>

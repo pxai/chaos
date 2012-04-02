@@ -47,6 +47,8 @@ if ($_POST["id"] !="" && !preg_match("/^[0-9]+$/",$_POST["id"]))  {
 	
 } elseif ($_GET["op"] == "getitem" && preg_match("/^[0-9]+$/",$_GET["id"])) {
 		echo $item->getItem($_GET["id"]);
+} elseif ($_GET["op"] == "getitemfull" && preg_match("/^[0-9]+$/",$_GET["id"])) {
+		echo $item->getItem($_GET["id"],1);
 } elseif ($_GET["op"] == "getitem" && preg_match("/^[0-9]+$/",$_GET["last"])) {
 		echo $item->getLasts($_GET["last"]);
 }

@@ -30,10 +30,11 @@ if ($_SESSION["iduser"]) { $user->logged = true; }
 
 
 // List of allowed actions
-$allowed = array("chaos","st/css/main.php","rss","signin","signout","signup","recovery","profile","footer","ajax/item","ajax/dragdrop","ajax/createcaptcha","ajax/upload","ajax/uploadchaoscode","ajax/createchaos","ajax/gettags","ajax/config","captcha","config","upload");
+$allowed = array("chaos","st/css/main.php","rss","signin","signout","signup","recovery","profile","footer","ajax/search","ajax/item","ajax/dragdrop","ajax/createcaptcha","ajax/upload","ajax/uploadchaoscode","ajax/createchaos","ajax/fastupload","ajax/gettags","ajax/config","captcha","config","upload","create","newitem");
 
 // get requested page, safe way in php5.2
 $page = filter_input(INPUT_GET, 'p', FILTER_SANITIZE_STRING);
+$op = filter_input(INPUT_GET, 'op', FILTER_SANITIZE_STRING);
 
 // Is one of the allowed actions?
 if (in_array($page,$allowed)) {
@@ -46,8 +47,14 @@ if (in_array($page,$allowed)) {
 	}
 // Is a chaos page?
 } elseif (preg_match($config["rx-chaosname"],$page)) {
-	$chaosname = $page;
-	include_once "content/chaos.php";	
+	if ($chaos->checkExists($page)) {
+		$currentbg = $chaos->current["bgcolor"];
+		$currentfg = $chaos->current["fgcolor"];
+		$currentimage = $chaos->current["bgimage"];
+		$chaosname = $page;
+	}
+	
+	include_once "content/default.php";	
 // Anyone else, go to default
 } else {
 	include_once $config["default"];

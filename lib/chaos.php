@@ -19,6 +19,7 @@ class LibChaos {
 	{	
 		$this->config = $config;
 		$this->db = $db;
+		$this->current["id"] = 0;
 	}
 	
 	/**
@@ -42,11 +43,12 @@ class LibChaos {
 	public function configChaos ($idchaos,$bgcolor,$fgcolor,$bgimage,$algorythm) {
 		if ($idchaos!="" || $idchaos) {
 			$user = $this->db->query("select * from chaos where id=".$idchaos);
+			$this->current = $user[0];
 			$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:0;
 			
 				if ($iduser == $user[0]["iduser"]) {
 					$sqlupdate = "update chaos set bgcolor='".$bgcolor."',fgcolor='".$fgcolor."', bgimage='".$bgimage."',algorythm='".$algorythm."' where id=".$idchaos;
-					$result = $this->db->query($sqlupdate);
+					$result = $this->db->nonquery($sqlupdate);
 			
 			}
 		}	

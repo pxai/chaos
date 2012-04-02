@@ -13,13 +13,33 @@
 		}
 ?>
 <div id="nav">
-<nav>
-<a href="<?=$link->url("upload")?>" title="<?=_("upload")?>" id="upload"><img src="images/upload.png" alt="<?=_("Upload content")?>" title="<?=_("Upload content")?>" border="0" /><span><?=_("Upload")?></span></a>
-<a href="<?=$link->url("create")?>" title="<?=_("Create chaos")?>" id="createchaos"><img src="images/add.png" alt="<?=_("create new chaos")?>" title="<?=_("create new chaos")?>" border="0" /><span><?=_("Create new chaos")?></span></a>
-<a href="<?=$link->url("config")?>" title="<?=_("Config chaos")?>" id="configchaos"><img src="images/config.png" alt="<?=_("Config chaos")?>" title="<?=_("Config chaos")?>" border="0" /><span><?=_("Config chaos")?></span></a>
-<input type="text" /><a href="search.php" title="<?=_("search")?>"><img src="images/search.png" alt="<?=_("search")?>" title="<?=_("search")?>" border="0" /></a>
-<?php if ($user->logged) { ?><?=_("Hi")?> <a href="<?=$link->url("profile")?>" title="<?=_("Change profile")?>"><span><?=$_SESSION["login"]?></span></a>
-<?php } else { ?><a href="<?=$link->url("signin")?>" title="<?=_("Sign in")?>" id="signinchaos"><img src="images/user.png" alt="<?=_("Sign in")?>" title="<?=_("Sign in")?>" border="0" /><span><?=_("Sign in")?></span></a>
+
+<span>
+<a href="<?="?p=".$chaos->current["name"]."&amp;op=newitem"?>" title="<?=_("upload")?>"><img src="images/upload.png" alt="<?=_("Upload content")?>" title="<?=_("Upload content")?>" border="0" /><span><?=_("Upload")?></span></a>
+</span>
+<span>
+<a href="<?=$link->url("create")?>" title="<?=_("Create chaos")?>"><img src="images/add.png" alt="<?=_("create new chaos")?>" title="<?=_("create new chaos")?>" border="0" /><span><?=_("Create new chaos")?></span></a>
+</span>
+<span>
+<a href="<?="?p=".$chaos->current["name"]."&amp;op=config"?>" title="<?=_("Config chaos")?>" id="configchaos"><img src="images/config.png" alt="<?=_("Config chaos")?>" title="<?=_("Config chaos")?>" border="0" /><span><?=_("Config chaos")?></span></a>
+</span>
+<span>
+<input type="text" id="searchterm" name="searchterm" /><a href="search.php" title="<?=_("search")?>" id="searchchaos"><img src="images/search.png" alt="<?=_("search")?>" title="<?=_("search")?>" border="0" /></a>
+</span>
+<span>
+<img src="images/user.png" alt="<?=_("Sign in")?>" title="<?=_("Sign in")?>" border="0" id="usericon" />
+<?php if ($user->logged) { ?>
+	<ul id="ddownuser">
+		<div><a href="<?=$link->url("profile")?>" title="<?=_("Change profile")?>" ><?=_("Profile")?></a></div>
+		<div><a href="<?=$link->url("signout")?>" title="<?=_("Sign out")?>"><?=_("Sign out")?></a></div>
+	</div>
+<?=_("Hi")?> 
+	<a href="<?=$link->url("profile")?>" title="<?=_("Change profile")?>"><span><?=$_SESSION["login"]?></span></a>
+<?php } else { ?>	
+	<div id="ddownuser">
+		<div><a href="<?=$link->url("signin")?>" title="<?=_("Sign in")?>" id="signinchaos"><?=_("Sign in")?></a></div>
+		<div><a href="<?=$link->url("signup")?>" title="<?=_("Sign up")?>"><?=_("Sign up")?></a></DIV>
+	</div>
 <?php } ?>
-</nav>
+</span>
 </div>

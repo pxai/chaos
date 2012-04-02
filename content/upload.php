@@ -9,18 +9,13 @@
 		<label for="uploaddescription"><?=_("Description")?></label><br />
 		<textarea name="uploaddescription" id="uploaddescription"></textarea><span id="uploaddescriptionlog" class="log"></span><br />
 		<label for="tags"><?=_("Tags")?></label><br />
-		<input type="text" name="uploadtags" id="uploadtags" value="" size="30" /><span id="uploadtagslog" class="log"></span><br />
-		<label for="uploadtype"><?=_("Upload type")?><span id="uploadtype"></span></label><br />
-		<ul id="uploadtype">
-		<?=$item->loadType()?>
-		</ul>
+		<input type="text" name="uploadtags" id="uploadtags" value="" size="30" /><span id="uploadtagslog" class="log"></span><br / -->
 		<div id="linkuploadform" class="dialog">
 				<label for="url"><?=_("Url")?></label><br />
 				<input type="text" name="url" id="url" value="" size="40" /><br />
-		</div>
-				<div id="uploadcaptcha"></div>
+		</div> 
+		<div id="uploadcaptcha"></div>
 				<input type="button" name="linkuploadbutton" id="linkuploadbutton" value="<?=_("Upload")?>" /><br />
 	</fieldset>
 </form>
 </div>
-

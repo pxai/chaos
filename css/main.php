@@ -34,9 +34,14 @@ body,html {
 	background-attachment: fixed;
 	}
 	
-header, div#header {
-	height: 40px;
+#header {
+	top: 0;
+	width: 100%;
+	min-width: 60em;
+	height: 2.5em;
 	background-color: #2a2a2a;
+	box-shadow: 3px 3px 4px #000;
+	position: fixed;
 	}
 
 span.log {
@@ -49,20 +54,29 @@ color: orange;
 	}
 
 #nav {
-	display: block;
 	float: right;
+	width: 300px;
+	text-align: right;
+	min-width: 50em;
+	/*height: 100%;*/
 	margin-bottom: 2em;
 	}
 
+#nav span {	
+/*display: inline-block;*/
+}
+	
 #nav a {
 	text-decoration: none;
-	display: inline-block;
 	}
 
 #nav a span {
 	color: #666666;
 	}
 
+#content {
+	margin-top: 2.8em; 
+}
 #nav a:hover span {
 	color: white;
 	}
@@ -81,7 +95,7 @@ color: orange;
 a {
 	color: #<?=$fgcolor?>;
 	}
-input {
+input, textarea {
 	padding-left: 0.3em;
 	padding-top: 0.2em;
 	border-radius: 0.4em;
@@ -89,6 +103,7 @@ input {
 fieldset{
 	border-radius:1em;
 	background-color: #777;
+	z-index: 10;
 }
 
 .required {
@@ -117,7 +132,7 @@ fieldset{
 }
 
 .item-name a {
-	font-size: 2em;
+	font-size: 1em;
 	color: #6b8e23;
 }
 
@@ -150,6 +165,10 @@ fieldset{
 	clear: both;
 	font-size: 0.8em;
 	color: gray;
+}
+
+.item-tags a {
+	color: #6b8e23;
 }
 
 /*** dialogs *****/
@@ -186,7 +205,7 @@ border-radius:1em;
 		margin-bottom: 1em;	
  	}
 
- .signform input:focus {
+ .signform input:focus, .signform textarea:focus{
 		 	background-color: lightgreen;
  	}
 
@@ -208,4 +227,60 @@ border-radius:1em;
 #uploadtype li{
  display: inline-block;
  margin-right: 1em;
+}
+
+/***************************
+* ddown list
+**************************/
+/*--- DROPDOWN ---*/
+#ddownuser{
+	padding: 0;
+	margin: 0;
+	float:left;
+	top: 40px;
+	right: 0;
+	position:absolute;
+	z-index:5;
+	padding: 1em;
+	background-color: #2a2a2a;
+	border: 0.1em solid white;
+	display: none;	
+}
+
+/**************************
+* tab
+****************************/
+.tab {
+display: none;
+}
+
+.tabvisible {
+display: block;
+}
+
+.tabmenu {
+	margin-bottom: -0.1em;
+}
+
+.tabmenu span {
+	z-index: -1;
+	display: inline-block;
+	padding: 1em;
+	margin-left: 2em;
+	border-top: 0.1em solid gray;
+	border-left: 0.1em solid gray;
+	border-right: 0.1em solid gray;
+	background-color: #777;
+	border-top-left-radius:1em;
+	border-top-right-radius:1em;
+	background-color: #<?=$bgcolor?>;
+}
+
+.tabmenu span.current {
+	background-color: #777;
+}
+
+.tabmenu a {
+	color: black;
+	text-decoration: none;
 }

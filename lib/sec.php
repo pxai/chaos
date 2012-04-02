@@ -8,7 +8,7 @@
 
 class LibSec {
 	var $config;
-	var $chars = "abcdefghjkmnpqrstuvwxyz23456789";
+	var $chars = "ABCDEFGHJKLMNPRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
 	var $db;
 	
 	/**

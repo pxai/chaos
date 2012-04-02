@@ -42,22 +42,9 @@
 		$currentimage = $chaos->current["bgimage"];
 	}
 ?>
-<!DOCTYPE HTML>
-<html>
-<head>
 <?php
 	include_once "content/head.php";
-	include_once "content/jquery.php";
 ?>
-</head>
-<body>
-<header>
-<?php include_once "content/nav.php"; ?>
-</header>
-<div id="content">
-<?php include_once "content/create.php"; ?>
-<?php include_once "content/config.php"; ?>
-<?php include_once "content/upload.php"; ?>
 <div id="signup" class="signform">
 	<div class="formtitle"><?=_("Sign up")?></div>
 
@@ -77,11 +64,6 @@
 	</fieldset>
 </form>
 </div>
-<footer>
 <?php
 	include_once "content/footer.php";
 ?>
-</footer>
-</div>
-</body>
-</html>

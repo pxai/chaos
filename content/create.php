@@ -1,4 +1,8 @@
-<div id="dialogcreate" class="dialog">
+<?php
+	include_once "content/head.php";
+?>
+<script type="text/javascript" src="js/create.php"></script>
+<div id="dialogcreate" class="signform">
 	<form>
 	<fieldset>
 		<span id="createlog" class="log"></span>
@@ -27,3 +31,6 @@
 	</fieldset>
 </form>
 </div>
+<?php
+	include_once "content/footer.php";
+?>

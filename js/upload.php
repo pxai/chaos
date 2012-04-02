@@ -62,16 +62,15 @@ $(document).ready(function() {
 	
 	
 	
-	function formatItem(row) {
-		alert(row[0]);
-		return row[0] + " (<strong>id: " + row[1] + "</strong>)";
-	}
-	function formatResult(row) {
-		return row[0].replace(/(<.+?>)/gi, '');
-	}
 	
 	$("#upload").click(function(e){
 		e.preventDefault();
+		
+/* if (!window.FileReader)
+  {
+  	location.href = "?p=upload";
+  	return;
+  }*/
 		updateid = "";
 		uploadtype = "";
 		$("#uploadlog").text("");
@@ -87,6 +86,7 @@ $(document).ready(function() {
 		$("#url").val("");
 		$("#linkuploadbutton").val("<?=_("Upload")?>");		
 		$("#linkuploadform").css("display","none");
+		$("#fileuploadform").css("display","none");
 		var result = $.ajax({
    			type: "POST",
    			url: "index.php?p=ajax/uploadchaoscode",
@@ -133,8 +133,12 @@ $(document).ready(function() {
 		$("#uploadtags").val(item_tags);
 		$("#uploadtags").css("background-color", "");
 		$("#uploadtagslog").text("");
-		$("#url").val(item_url);
-		$("#linkuploadform").css("display","block");
+		if (item_type==5 || item_type==6 || item_type == 8) {
+			$("#url").val(item_url);
+			$("#linkuploadform").css("display","block");
+		} else {
+			$("#linkuploadform").css("display","none");
+		}
 		var result = $.ajax({
    			type: "POST",
    			url: "index.php?p=ajax/uploadchaoscode",
@@ -164,13 +168,14 @@ $(document).ready(function() {
 		if (confirm("<?=_("Are you sure?")?>") ) {
 		var result = $.ajax({
    			type: "POST",
-   			url: "index.php?p=ajax/uploadchaoscode",
+   			url: "index.php?p=ajax/upload",
    			data: "deleteid="+deleteid,
    			dataType:"json",
    			success: function(data){
-   							if (data.Result != "Success") {
-   								$("#item-"+item_id).css("display","none");
-   							}
+   							if (data.Result == "Success") {
+   								$("#item-"+item_id).hide("slow");
+   								$("#item-"+item_id).remove();
+							}
    						}
    			});		
    	} 
@@ -246,6 +251,14 @@ $(document).ready(function() {
 		if (uploadtype == "")
 			$("#uploadtype").text("<?=_("map")?>");
 	});
+
+	$("#uploadname").blur(function() {
+		if ($(this).val() != "") {
+			$("#uploadnamelog").text("");
+			$("#uploadname").css("background-color","");
+		}
+	});
+	
 	
 	$("#uploadtype a").click(function(e){
 		e.preventDefault();
@@ -258,18 +271,26 @@ $(document).ready(function() {
 			var idtype = $(this).attr("href");
 			changeSelected(e,tagname[1],idtype);
 		switch (tagname[1]) {
-			case "video":
 			case "link":
 			case "rss":
 			case "map":
 					 $("#linkuploadform").css("display","block");
 					 $("#uploaddescription").css("background-color","");
-
+					 break;
+			case "video":
+			case "image":
+			case "file":
+			case "music":
+					 $("#linkuploadform").css("display","block");
+					 $("#uploaddescription").css("background-color","");
+					 $("#fileuploadform").css("display","block");
+					 $("#uploaddescription").css("background-color","");
 					 break;
 					 
 			default:
 					 $("#linkuploadform").css("display","none");
-						break;
+					 $("#fileuploadform").css("display","none");
+					 break;
 		}//case
 	  }// function
 	});//click
@@ -305,10 +326,24 @@ $(document).ready(function() {
 			return;
 		}
 
-		
+		  /*var fd = new FormData();    
+		  fd.append( 'upload_file', newfile[0] );
+		  fd.append("updateid",updateid);
+		  fd.append("updateid",updateid);
+		  fd.append("chaosid",$("#chaosid").val());
+		  fd.append("chaosuploadcode",$("#chaosuploadcode").val());
+		  fd.append("uploadname",$("#uploadname").val());
+		  fd.append("uploaddescription",$("#uploaddescription").val());
+		  fd.append("uploadtags",$("#uploadtags").val());
+		  fd.append("uploadtype",uploadtype);
+		  fd.append("url",$("#url").val());
+		  fd.append("captchakey",$("#captchakey").val());
+		  fd.append("captcha",$("#captcha").val());
+		  */
 		var result = $.ajax({
    			type: "POST",
    			url: "index.php?p=ajax/upload",
+   			//data: fd,
    			data: "updateid="+updateid+"&chaosid="+$("#chaosid").val()+"&chaosuploadcode="+$("#chaosuploadcode").val()+"&uploadname="+$("#uploadname").val()+"&uploaddescription="+$("#uploaddescription").val()+"&uploadtags="+$("#uploadtags").val()+"&uploadtype="+uploadtype+"&url="+$("#url").val()+"&captchakey="+$("#captchakey").val()+"&captcha="+$("#captcha").val(),
    			dataType:"json",
    			success: function(data){
@@ -367,12 +402,5 @@ $(document).ready(function() {
 	});// end click
 	
 	
- $('#upload_file').live('change', function(){ alert("ha cambiado"); });
-    
-    $("input[type='file']").change( function() {
-  	alert("cambios");
 });
     
-
-	
-});

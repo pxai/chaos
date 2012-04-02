@@ -13,8 +13,6 @@
 
 $(document).ready(function() {
 
-	$("#configchaos").click(function(e){
-		e.preventDefault();
 		   var result = $.ajax({
    			type: "GET",
    			url: "index.php?p=ajax/createcaptcha",
@@ -22,7 +20,7 @@ $(document).ready(function() {
    			success: function(data){
    								$("#configcaptcha").html(data);
    						}
-   		});
+   			});
 		$("#bgcolor").css("background-color","");
 		$("#fgcolor").css("background-color","");
 		$("#bgimage").css("background-color","");
@@ -32,15 +30,6 @@ $(document).ready(function() {
 		$("#fgcolorlog").text("");
 		$("#bgimagelog").text("");
 		$("#algorythmlog").text("");
-		$("#dialogconfig").dialog("open");
-	});
-	
-		$('#dialogconfig').dialog({
-					autoOpen: false,
-					title: "Config Chaos",
-					width: 400,
-					modal: true
-					});
 			
 			
 	$("#submitconfig").click(function() {
@@ -59,11 +48,11 @@ $(document).ready(function() {
 			errors = 1;
 		}
 		
-		if (trim($("#bgimage").val()) == "") {
+/*		if (trim($("#bgimage").val()) = "") {
 			$("#bgimage").focus();
 			$("#bgimage").css("background-color","yellow");
 			errors = 1;
-		}
+		}*/
 
 		if (errors) { return; }		
 		var result = $.ajax({
@@ -77,7 +66,8 @@ $(document).ready(function() {
 							$("body").css("color",$("#fgcolor").val());
 							$("body").css("background-color",$("#bgcolor").val());
 							$("body").css("background-image","url("+$("#bgimage").val()+")");
-	   					$("#dialogconfig").dialog("close");
+	   					//$("#dialogconfig").dialog("close");
+	   						location.href = "?p="+data.Name;
    					
    				} else {
    					if (data.captcha == "incorrect") {

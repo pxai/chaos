@@ -11,8 +11,8 @@ $(document).ready(function() {
 	
 	var islogged = <?=($user->logged)?"true":"false";?>;
 			
-	$("#createchaos").click(function(e){
-		e.preventDefault();
+//	$("#createchaos").click(function(e){
+	//	e.preventDefault();
 
 		$("#captchalog").text("");
 		$("#createlog").text("");
@@ -39,15 +39,18 @@ $(document).ready(function() {
    								$("#createcaptcha").html(data);
    						}
    		});
-		$("#dialogcreate").dialog("open");
-	});
-	
-		$('#dialogcreate').dialog({
+	//});
+
+	/*$('#dialogcreate').dialog({
 					autoOpen: false,
 					title: "<?=_("Create new Chaos")?>",
 					width: 600,
 					modal: true
-					});
+	})*/;
+	
+	/*$("#dialogcreate").dialog("open");*/
+	
+	
 					
 	$("#privatechaos").click(function() {
 		if ($("#privatechaos").is(":checked")) {

@@ -1,4 +1,12 @@
-<div id="dialogconfig" class="dialog">
+<?php
+//	include_once "content/head.php";
+	if (preg_match($config["rx-chaosname"],$_GET["c"]) && $chaos->checkExists($_GET["c"])) {
+		$chaosname = $_GET["c"];
+	}
+	
+?>
+<script type="text/javascript" src="js/config.php"></script>
+<div id="dialogconfig" class="signform">
 	<form>
 	<fieldset>
 			<span id="configlog" class="log"></span>
@@ -16,3 +24,6 @@
 	</fieldset>
 </form>
 </div>
+<?php
+	//include_once "content/footer.php";
+?>

@@ -8,7 +8,7 @@
 
 class LibCaptcha {
 	var $config;
-	var $chars = "abcdefghjkmnpqrstuvwxyz23456789";
+	var $chars = "ABCDEFGHJKMNPRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
 	var $db;
 	
 	/**

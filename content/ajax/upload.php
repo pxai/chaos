@@ -17,7 +17,7 @@ $sql = "";
 $exist = false;
 $errors = "";
 $idchaos = 0;
-
+$linkneeded = array(5,6,8);
 $isupdate = (preg_match("/^[0-9]+$/",$_POST["updateid"]))?true:false;
 $isdelete = (preg_match("/^[0-9]+$/",$_POST["deleteid"]))?true:false;
 
@@ -47,10 +47,11 @@ if (!$isupdate && !preg_match("/^[0-9]+$/",$_POST["uploadtype"]) ) {
 			$errors .= ' "type" : "incorrect",';
 }
 
-// check url
-if ($_POST["uploadtype"]!=7  && !preg_match($config["rx-url"],$_POST["url"])) {
+// check url if needed
+if (in_array($_POST["uploadtype"],$linkneeded) && !preg_match($config["rx-url"],$_POST["url"])) {
 			$errors .= ' "url" : "incorrect", ';
 } 
+
 
 // check description in text items
 if ($_POST["uploadtype"]==7  && trim($_POST["uploaddescription"])=="") {
@@ -60,6 +61,10 @@ if ($_POST["uploadtype"]==7  && trim($_POST["uploaddescription"])=="") {
 if (!$captcha->validate($_POST["captchakey"],$_POST["captcha"])) {
 		$errors .= ' "captcha" : "incorrect",';
 } 
+
+
+
+
 
 $errors = rtrim($errors,",");
 
@@ -77,14 +82,12 @@ if (!$errors) {
 	
 	//$captcha->drop($_POST["captchakey"]);
 
+	$url = $_POST["url"]; 
+	
 	if ($isupdate) {
-		$result = $item->updateItem($_POST["updateid"],$_POST["uploadname"],$_POST["uploaddescription"],$_POST["url"]);
+		$result = $item->updateItem($_POST["updateid"],$_POST["uploadname"],$_POST["uploaddescription"],$url);
 		if ($result) { $tags->setTags($_POST["uploadtags"],$_POST["updateid"]); }
-	} else {
-		$result = $item->createItem($idchaos,$_POST["uploadname"],$_POST["uploaddescription"],$_POST["uploadtype"],$_POST["url"]);
-		$tags->setTags($_POST["uploadtags"],$result);
-	}
-
+	} 
 	echo '{"Result" : "Success", "Uploadname" : "'.$_POST["uploadname"].'", "Id" : "'.$result.'"}';
 	
 } else {

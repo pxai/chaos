@@ -76,7 +76,7 @@ if (preg_match("/^[0-9]+$/",$_POST["chaosid"]) ) {
 
 
 if (!$errors) {
-	echo '{"Result" : "Success" }';
+	echo '{"Result" : "Success" , "Name" : "'.$chaos->current["name"].'" }';
 } else {
 	echo '{"Result" : "Error" , '.$errors.'}';
 } 
