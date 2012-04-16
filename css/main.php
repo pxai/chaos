@@ -86,7 +86,12 @@ color: orange;
 	border: 0;
 	height: 1.5em;
 }
-
+#divmore {
+	text-align: center;
+	}
+#divmore a {
+	color: white;
+	}
 #chaoslink {
 	text-decoration: none;
 	font-size: 2em;

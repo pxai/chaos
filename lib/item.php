@@ -175,13 +175,13 @@ class LibItem {
 	 * getLasts
 	 * get last item
 	 */
-	public function getLasts($howmany = 10, $chaos= 0 ) {
+	public function getLasts($page = 0, $chaos= 0, $howmany=10 ) {
 		$html = "";
 		$this->current["id"] = $chaos;
 		if (!$chaos) {
-			$sql = "select item.id from item left join chaos on item.idchaos=chaos.id where idchaos=0 or chaostype>1 order by item.created desc limit 0,".$howmany;
+			$sql = "select item.id from item left join chaos on item.idchaos=chaos.id where idchaos=0 or chaostype>1 order by item.created desc limit ".$page.",".$howmany;
 		}else {
-			$sql = "select id from item where idchaos=".$chaos. " order by created desc limit 0,".$howmany;
+			$sql = "select id from item where idchaos=".$chaos. " order by created desc limit ".$page.",".$howmany;
 		}
 		$items = $this->db->query($sql);
 		

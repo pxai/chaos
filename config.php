@@ -20,6 +20,7 @@ $config["email"] = "chaos@chaos.cx";
 $config["upload_dir"] = "./upload/";
 $config["upload_size"] = "10241114";
 $config["allow_any_frontpage"] = true;
+$config["item_pagination"] = 10;
 
 /*************************************
 * basic appearence

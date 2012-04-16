@@ -19,6 +19,8 @@ function rtrim(str, chars) {
 }
 
 $(document).ready(function() {
+	
+		var currentpage = 10;
 
 		function split( val ) {
 			return val.split( /,\s*/ );
@@ -28,9 +30,6 @@ $(document).ready(function() {
 			return split( term ).pop();
 		}
 		
-		$("body").scroll( function(event){
-							alert("vamos nena dale");
-						});
 
 		$( "#uploadtags" ).bind( "keydown", function( event ) {
 				if ( event.keyCode === $.ui.keyCode.TAB &&
@@ -96,6 +95,24 @@ $(document).ready(function() {
 						//alert(data.Chaosname);
    					$("#showitem").html(data);
    					$("#showitem").dialog("open");
+   				} 
+   			}
+ 			});// end ajax
+		});
+		
+		$("#more").click(function (e) {
+			e.preventDefault();
+
+			var result = $.ajax({
+   			type: "GET",
+   			url: "index.php?p=ajax/item",
+   			data: "op=getitem&last="+currentpage,
+   			dataType:"html",
+   			success: function(data){
+
+					if (data != "") {
+   					$("#items").append(data);
+   					currentpage+= 10;
    				} 
    			}
  			});// end ajax

@@ -53,7 +53,7 @@ if ($_POST["id"] !="" && !preg_match("/^[0-9]+$/",$_POST["id"]))  {
 } elseif ($_GET["op"] == "getitemjson" && preg_match("/^[0-9]+$/",$_GET["id"])) {
 		echo $item->getItemJson($_GET["id"]);
 } elseif ($_GET["op"] == "getitem" && preg_match("/^[0-9]+$/",$_GET["last"])) {
-		echo $item->getLasts($_GET["last"]);
+		echo $item->getLasts($_GET["last"],$chaos->current["id"]);
 }
 
 ?>

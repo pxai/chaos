@@ -34,6 +34,7 @@ ondragover="allowDrop(event)">
 ?>
 </div>
 </div>
+<div id="divmore"><a href="" title="<?=_("Older items")?>" id="more"><?=_("Older...")?></a></div>
 
 <?php
 	include_once "content/footer.php";
