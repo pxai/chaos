@@ -26,9 +26,9 @@ ondragover="allowDrop(event)">
 					<div id="showitem" class="dialog"></div>
 					<?php
 					if ($chaos->current["id"]) 
-						echo $item->getLasts(10,$chaos->current["id"]);
+						echo $item->getLasts(0,$chaos->current["id"]);
 					else
-						echo $item->getLasts();
+						echo $item->getLasts(0);
 		break;
 	}
 ?>

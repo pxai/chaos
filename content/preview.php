@@ -7,7 +7,7 @@
 	
 	if (preg_match("/^[0-9]+$/",$_GET["new"])) {
 		$item->selectItem($_GET["new"]);	
-		if ($item->isOwner($_GET["new"])) {
+		if ($item->isOwner($_GET["new"],$_SESSION["iduser"])) {
 		
 			$name = $item->current["name"];
 			$description = $item->current["description"];
