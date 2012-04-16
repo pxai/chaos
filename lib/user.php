@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 /**
 * db.php
 * the chaos also needs somewhere to save its content
@@ -12,6 +13,7 @@ class LibUser {
 	var $db;
 	var $logged = false;
 	var $sec;
+	var $current;
 	
 	/**
 	* __construct
@@ -164,6 +166,8 @@ class LibUser {
 		
 	}
 	
+	
+
 	/**
 	* resetpassword
 	* generates and show new password after recovery
@@ -178,7 +182,7 @@ class LibUser {
 			$password = $this->sec->randomstring(8);
 			$this->db->nonquery("update user set recover='', password=sha1('".$password."') where id=". $id);
 			$html = sprintf(_("Ok, account your new password is %s. Try to sign in now: "),$password);
-			$html .= '<a href="?signin" title="'._("Sign in").'">'._("Sign in").'</a>';
+			$html .= '<a href="?=signin" title="'._("Sign in").'">'._("Sign in").'</a>';
 		}
 		
 		if (count($accountexists)) {
@@ -189,7 +193,68 @@ class LibUser {
 		
 	}
 	
+	/**
+	* acceptInvitation
+	* generates and show new password after recovery
+	*/
+	public function acceptInvitation ($recovercode) {
+	
+		$html = "";
 
+		$exists = $this->db->query("select * from chaos_user where recover='".$recovercode."'");
+
+		if (count($exists) && !$this->logged) {
+			$this->db->nonquery("update chaos_user set recover='' where recover='".$recovercode."'  and id=". $exists[0]["id"]);
+			$html = sprintf(_("Ok, invitation accepted. Try to sign in now: "),$password);
+			$html .= '<a href="?p=signin" title="'._("Sign in").'">'._("Sign in").'</a>';
+		} elseif (count($exists) && $this->logged) {
+			$this->updateInvitations($_SESSION["iduser"],$_SESSION["email"],$exists[0]["idchaos"]);
+			$html = _("Ok, invitation accepted. Check out your chaos: ");
+			$html .= '<br /><a href="?p=mychaos" title="'._("My chaos").'">'._("My chaos").'</a>';
+		}
+		
+		if (count($exists)) {
+			return $html;
+		} else {
+			return sprintf(_("Invalid recovery code"));
+		}
+		
+	}
+	
+	/**
+	* updateInvitations
+	* update invitations one by one
+	*/
+	public function updateInvitations ($iduser,$email,$idchaos=0) {
+	
+		$where = (!$idchaos)?" ":" idchaos=".$idchaos." and ";
+		$sql = "update chaos_user set iduser=".$iduser.", email='', recover='' where ".$where." email='".$email."'";
+		$exists = $this->db->nonquery($sql);
+
+	}
+
+	/**
+	* showInvitations
+	* show pending invitations
+	*/
+	public function showInvitations ($iduser) {
+	
+		$html = "";
+
+		$invitations = $this->db->query("select chaos_user.*, name from chaos_user inner join chaos on chaos.id=chaos_user.idchaos where email='".$_SESSION["email"]."' and recover<>''");
+
+		if (count($invitations)) {
+		$html .= '<div class="">'._("Pending invitations").'</div>';
+		$html .=	'<div><a href="?p=invite&op=confirm&id=0" title="'._("Confirm all invitations").'">'._("Confirm invitations").'</a></div>';
+
+			foreach ($invitations as $inv) {
+				$html .= '<div><a href="?p=invite&op=confirm&id='.$inv["idchaos"].'" title="'.sprintf(_("Click to accept invitation to %s"),$inv["name"]).'">'.$inv["name"].'</a></div>';
+			}
+		}
+		return $html;
+	
+	}
+	
 }
 
 ?>

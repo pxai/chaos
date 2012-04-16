@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 /**
 * autoload.php
 * the chaos needs to autoload classes

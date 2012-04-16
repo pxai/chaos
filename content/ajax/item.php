@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 /**
 * item.php
 * ajax handler for upload
@@ -49,6 +50,8 @@ if ($_POST["id"] !="" && !preg_match("/^[0-9]+$/",$_POST["id"]))  {
 		echo $item->getItem($_GET["id"]);
 } elseif ($_GET["op"] == "getitemfull" && preg_match("/^[0-9]+$/",$_GET["id"])) {
 		echo $item->getItem($_GET["id"],1);
+} elseif ($_GET["op"] == "getitemjson" && preg_match("/^[0-9]+$/",$_GET["id"])) {
+		echo $item->getItemJson($_GET["id"]);
 } elseif ($_GET["op"] == "getitem" && preg_match("/^[0-9]+$/",$_GET["last"])) {
 		echo $item->getLasts($_GET["last"]);
 }

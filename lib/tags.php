@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 
 /**
 * LibTags
@@ -39,12 +40,12 @@ class LibTags   {
 	public function setTags ($tags,$item)
 	{
 	
+
 			$finaltags = array();
 			$finaltagstext = array();
 			
 			$ts = preg_split("/,/",$tags);
 			$ok = 1;
-		
 			foreach ($ts as $t)
 			{
 				$t = strtolower(trim($t));

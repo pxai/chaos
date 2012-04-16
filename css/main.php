@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 	/**
 	* css owned by the chaos
 	*
@@ -26,6 +27,7 @@ body,html {
 	margin: 0;
 	padding: 0;
 	font-size: 1em;
+	font-family: sans, arial, verdana;
 	color: #<?=$fgcolor?>;
 	background-color: #<?=$bgcolor?>; 
 	background-image: url(<?=$bgimage?>);
@@ -57,7 +59,7 @@ color: orange;
 	float: right;
 	width: 300px;
 	text-align: right;
-	min-width: 50em;
+	min-width: 45em;
 	/*height: 100%;*/
 	margin-bottom: 2em;
 	}
@@ -110,21 +112,31 @@ fieldset{
 	font-weight: bolder;
 }
 
+.whitenote {
+	font-size: 0.8em;
+	color: #ddd;
+	}
 /*********************
 * item
 **********************/
 .item {
-	width: 40em;
+	width: 500px;
 	background-color: white;
 	margin: 1em;
 	padding: 0.5em;
 	color: black;
 	border-radius:0.8em;
+	box-shadow: 3px 3px 4px #333;
+	height: 7em;
 }
+
+.item.full {
+	height: 20em;
+	}
 
 .item a {
 	text-decoration: none;
-	color: black;
+	color: #<?=$fgcolor?>;
 }
 
 .item a:hover {
@@ -132,16 +144,35 @@ fieldset{
 }
 
 .item-name a {
-	font-size: 1em;
-	color: #6b8e23;
+	font-size: 2em;
+	/*font-weight: bold;*/
+	color: #<?=$fgcolor?>;
 }
 
+.item-edit a {
+	font-size: 0.8em;
+	}
+	
 .item a:hover {
 }
 
 .item-name {
-	font-size: 2em;
 	color: black;
+}
+
+.item-chaos {
+	text-align: right;
+	font-size: 1em;
+	color: black;
+}
+
+.item-chaos a{
+		color: #<?=$fgcolor?>;
+		text-decoration: none;
+}
+
+.item-chaos img{
+		border: 0;
 }
 
 .item-details {
@@ -157,10 +188,14 @@ fieldset{
 }
 
 .item-type {
-	float: left;
-	width: 4em;
+	float: right;
+	width: 25px;
 }
 
+.item-type a,img {
+	border: 0;
+	
+}
 .item-tags {
 	clear: both;
 	font-size: 0.8em;
@@ -168,7 +203,7 @@ fieldset{
 }
 
 .item-tags a {
-	color: #6b8e23;
+	color: #<?=$fgcolor?>;
 }
 
 /*** dialogs *****/
@@ -192,15 +227,20 @@ border-radius:1em;
  
   .signform fieldset {
  	border: 0.1em solid gray;
+ 	background-color: rgba(63,63,63,0.8);
  	}
  
- .signform label, .signform input  {
+ .signform label {
  		font-size: 14pt;
  		height: 2em;
+ 		color: #d1d1d1;
  	}
 
  	
  .signform input {
+ 		font-size: 14pt;
+ 		height: 2em;
+ 		color: #333;
 		border: none; 
 		margin-bottom: 1em;	
  	}
@@ -270,14 +310,13 @@ display: block;
 	border-top: 0.1em solid gray;
 	border-left: 0.1em solid gray;
 	border-right: 0.1em solid gray;
-	background-color: #777;
 	border-top-left-radius:1em;
 	border-top-right-radius:1em;
-	background-color: #<?=$bgcolor?>;
+	background-color: #777;
 }
 
 .tabmenu span.current {
-	background-color: #777;
+	 	background-color: rgba(63,63,63,0.8);
 }
 
 .tabmenu a {

@@ -1,3 +1,4 @@
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you'); ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -17,8 +18,6 @@
 </div>
 
 
-<?php include_once "content/upload.php"; ?>
-<?php include_once "content/uploaddrop.php"; ?>
 <script type="text/javascript">
 
 

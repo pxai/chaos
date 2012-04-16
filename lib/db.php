@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 /**
 * db.php
 * the chaos also needs somewhere to save its content
@@ -34,6 +35,7 @@ class LibDb {
 
 	public function query($sql) {
 		$rows = array();
+
 		$result = mysql_query($sql) or die("Error: $sql :" . mysql_error());
 		while ($r = mysql_fetch_assoc($result)) {
 			$rows[] = $r;

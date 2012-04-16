@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 
 $error_message[0] = "Unknown problem with upload.";
 $error_message[1] = "Uploaded file too large (load_max_filesize).";

@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
   header("Content-Type: application/xml; charset=utf-8"); 
 
 	if ($chaos->checkExists($chaosname)) {

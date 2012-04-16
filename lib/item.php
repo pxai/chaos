@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 /**
 * item.php
 * items that creep in the chaos
@@ -11,7 +12,7 @@ class LibItem {
 	var $db;
 	var $current;
 	var $util;
-	
+		
 	/**
 	* __construct
 	*
@@ -30,8 +31,28 @@ class LibItem {
 	*/
 	public function selectItem ($id)
 	{	
-		$item = $this->db->query("select * from item where id=" . $id);
+		$tags = "";	
+		$item = $this->db->query("select item.*, chaos.name as chaosname from item left join chaos on chaos.id=item.idchaos where item.id=" . $id);
+		$tag = $this->db->query("SELECT tag.id, tag.tag FROM item_tag inner join (tag) on (item_tag.idtag=tag.id) WHERE iditem=".$id);
+
+		foreach ($tag as $t) {
+			$tags .= $t["tag"].", ";
+		}
+		
+		$tags = rtrim($tags,",");
+
+		$this->current = $item[0];
+		$this->current["tags"] = $tags;
 		return $item[0];
+	}
+
+	/**
+	* isOwner
+	* Checks if user is owner of the item
+	*/	
+	public function isOwner($iditem,$iduser) {
+		
+		return ($this->current["iduser"] == $iduser || $this->current["sessionid"]==session_id());
 	}
 	
 	/**
@@ -42,7 +63,8 @@ class LibItem {
 	public function createItem ($idchaos,$uploadname,$uploaddescription,$uploadtype,$url) {
 
 		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:0;
-		$sql = "insert into item (idchaos,name,description,idtype,url,iduser) values (".$idchaos.",'".$uploadname."','".$uploaddescription."',".$uploadtype.",'".$url."',".$iduser.")";
+		$sessionid = (!$iduser)?"":session_id();
+		$sql = "insert into item (idchaos,name,description,idtype,url,iduser,sessionid) values (".$idchaos.",'".$uploadname."','".$uploaddescription."',".$uploadtype.",'".$url."',".$iduser.",'".$sessionid."')";
 		$this->db->nonquery($sql);
 		$newid = $this->db->insert_id(); 
 		$cleanurl = $this->genCleanUrl($newid, $uploadname);
@@ -59,18 +81,18 @@ class LibItem {
 	* returns newly created id
 	*/
 	public function updateItem ($iditem,$uploadname,$uploaddescription,$url) {
-		$linkneeded = array(5,6,8);
+		$linkneeded = array(4,5,6,8);
 		$item = $this->selectItem($iditem);
 		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:0;
 		if (in_array($item["idtype"],$linkneeded)) 
-			$sql = "update item set name='".$uploadname."',description='".$uploaddescription."',url='".$url."' where id=".$iditem ." and iduser=" . $iduser;
+			$sql = "update item set name='".$uploadname."',description='".$uploaddescription."',url='".$url."' where id=".$iditem ." and ((iduser=" . $iduser .") or (sessionid='".session_id()."'))";
 		else		
-			$sql = "update item set name='".$uploadname."',description='".$uploaddescription."' where id=".$iditem ." and iduser=" . $iduser;
+			$sql = "update item set name='".$uploadname."',description='".$uploaddescription."' where id=".$iditem ." and ((iduser=" . $iduser.") or (sessionid='".session_id()."'))";
 
 		$this->db->nonquery($sql);
 		$cleanurl = $this->genCleanUrl($iditem, $uploadname);
 		
-		$sql = "update item set cleanurl='".$cleanurl."' where id=" . $iditem . " and iduser=".$iduser;
+		$sql = "update item set cleanurl='".$cleanurl."' where id=" . $iditem . " and (iduser=".$iduser.") or (sessionid='".session_id()."')";
 		$ok = $this->db->nonquery($sql);
 
 		return $iditem; 
@@ -133,11 +155,12 @@ class LibItem {
 	 */
 	public function searchItems ($term, $chaos= 0, $howmany = 10) {
 		$html = "";
-		
-		$chaosterm = (!$chaos)?" idchaos > -1 ":" idchaos = ".$chaos;
+		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:-1;
+		$chaosterm = (!$chaos)?" item.idchaos > -1 ":" item.idchaos = ".$chaos;
 		$searchterm = " (description like '%".$term."%' or item.name like '%".$term."%' or url like '%".$term."%' or chaos.name='%".$term."%')";
-		$sql = "select item.id as id from item inner join chaos on item.idchaos=chaos.id where " . $chaosterm . " and ". $searchterm ." and (private=0 or (private=1 and item.iduser=".$_SESSION["iduser"].")) order by item.created desc limit 0,".$howmany;
-		
+//		$sql = "select item.id as id from item inner join chaos on item.idchaos=chaos.id where " . $chaosterm . " and ". $searchterm ." and (chaostype>1 or (chaostype=1 and item.iduser=".$iduser.")) order by item.created desc limit 0,".$howmany;
+		$sql = "select item.id as id from item left join chaos on item.idchaos=chaos.id left join chaos_user on chaos_user.idchaos=chaos.id where " . $chaosterm . " and ". $searchterm ." and (item.idchaos=0 or chaostype>1 or (chaostype=1 and chaos.iduser=".$iduser.") or (chaostype=1 and chaos_user.iduser=".$iduser.")) order by item.created desc limit 0,".$howmany;
+		//echo $sql;
 		$items = $this->db->query($sql);
 		
 		foreach ($items as $item) {
@@ -154,8 +177,13 @@ class LibItem {
 	 */
 	public function getLasts($howmany = 10, $chaos= 0 ) {
 		$html = "";
-		
-		$items = $this->db->query("select id from item where idchaos=".$chaos. " order by created desc limit 0,".$howmany);
+		$this->current["id"] = $chaos;
+		if (!$chaos) {
+			$sql = "select item.id from item left join chaos on item.idchaos=chaos.id where idchaos=0 or chaostype>1 order by item.created desc limit 0,".$howmany;
+		}else {
+			$sql = "select id from item where idchaos=".$chaos. " order by created desc limit 0,".$howmany;
+		}
+		$items = $this->db->query($sql);
 		
 		foreach ($items as $item) {
 			$html .= $this->getItem($item["id"]);
@@ -165,36 +193,94 @@ class LibItem {
 	}
 	
 	/**
+	 * getByTag
+	 * get last item
+	 */
+	public function getByTag($tag, $howmany = 10 ) {
+		$html = "";
+		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:-1;
+		$sql = "select item_tag.iditem as id from item_tag left join ( tag ) on ( item_tag.idtag = tag.id ) left join item on item.id=item_tag.iditem  left join chaos  on chaos.id=item.idchaos  left join chaos_user on chaos_user.idchaos=chaos.id  where tag.tag =  '".$tag."' and (item.idchaos=0 or chaostype >1 or (chaostype =1 and chaos.iduser =  ".$iduser.") or (chaostype=1 and chaos_user.iduser=".$iduser."))order by item.created desc limit 0 , ".$howmany;		"select item.id as id from item inner join chaos on item.idchaos=chaos.id inner join item_tag on item_tag.iditem=item.id inner join (tag) on (item_tag.idtag=tag.id)inner join tag o where " . $chaosterm . " and ". $searchterm ." and (chaostype>1 or (chaostype=1 and item.iduser=".$iduser.")) order by item.created desc limit 0,".$howmany;
+		//echo $sql;
+		$items = $this->db->query($sql);
+		
+		foreach ($items as $item) {
+			$html .= $this->getItem($item["id"]);
+		}
+		
+		return $html;
+
+	}
+	
+	/**
 	* getItem
-	* Checks if a chaos exists or not
+	* Given an id returns a block with the item
 	*/
 	public function getItem ($id,$full=0) {
 		$html = "";
-		$item = $this->db->query("select item.*, tag.tag, item_type.name as typename, item_tag.idtag, user.login from item inner join item_type on item.idtype=item_type.id left join item_tag on item.id=item_tag.iditem left join tag on tag.id=item_tag.idtag left join user on user.id=iduser where item.id=".$id);
+		$class = ($full)?"item full":"item";
+		$item = $this->db->query("select chaos.name as chaosname, item.*, item_type.name as typename, user.login from item left join chaos on chaos.id=item.idchaos inner join item_type on item.idtype=item_type.id  left join user on user.id=item.iduser where item.id=".$id);
 
 		if (count($item)) {
-			$html .= '<div class="item" id="item-'.$id.'">';
-			$title = (strlen($item[0]["name"])>30)?substr($item[0]["name"],0,30)."...":$item[0]["name"];
-			$html .= '<div class="item-name"><a href="'.$item[0]["url"].'" title="'.$item[0]["name"].'">'.$title.'</a></div>';
+			$html .= '<div class="'.$class.'" id="item-'.$id.'">';
+			$edit = (($_SESSION["iduser"] == $item[0]["iduser"]) || (session_id() == $item[0]["sessionid"]))?'<span class="item-edit"><a href="'.$item[0]["id"].'" title="'._("edit item").'" class="item_edit">'._("edit").'</a> | <a href="'.$item[0]["id"].'" title="'._("delete item").'" class="item_delete">'._("delete").'</a></span>':'';
 			$type = strtolower($item[0]["typename"]);
+			$html .= '<div class="item-type"><a href="'.$item[0]["url"].'" title="'.$item[0]["name"].'"><img src="images/'.$type.'.gif" title="'.sprintf(_("This item is %s"),$type).'" alt="'.sprintf(_("This item is %s"),$type).'" class="type_'.$item[0]["idtype"].'" /></a></div>';
+			$title = (strlen($item[0]["name"])>30)?substr($item[0]["name"],0,30)."...":$item[0]["name"];
+			$html .= '<div class="item-name"><a href="'.$item[0]["url"].'" title="'.$item[0]["name"].'">'.$title.'</a> '.$edit.'</div>';
 			$username = ($item[0]["login"])?$item[0]["login"]:"Anonymous";
 			$itemdate = date("F jS, Y", strtotime($item[0]["created"]));
-			$edit = ($_SESSION["iduser"] == $item[0]["iduser"])?'<a href="'.$item[0]["id"].'" title="'._("edit item").'" class="item_edit">'._("edit").'</a> | <a href="'.$item[0]["id"].'" title="'._("delete item").'" class="item_delete">'._("delete").'</a>':'';
-			$html .= '<div class="item-details"><span class="item-date">'.$itemdate.'</span><span class="item-user">'.sprintf(_(" by %s"),$username).' '.$edit.'</div>';
-			$html .= '<div class="item-type"><a href="'.$item[0]["url"].'" title="'.$item[0]["name"].'"><img src="images/'.$type.'.gif" title="'.sprintf(_("This item is %s"),$type).'" alt="'.sprintf(_("This item is %s"),$type).'" class="type_'.$item[0]["idtype"].'" /></a></div>';
-			if ($full)			
+			$html .= '<div class="item-details"><span class="item-date">'.$itemdate.'</span><span class="item-user">'.sprintf(_(" by %s"),$username). ' ';
+			if (!$this->current["id"] && $item[0]["idchaos"]>0)
+				$html .= '<span class="item-chaos">'._("in").' <a href="?p='.$item[0]["chaosname"].'" title="'.sprintf(_("Go to %s"),$item[0]["chaosname"]).'">'.$item[0]["chaosname"].'<img src="images/vortexlt.png" title="'.sprintf(_("Go to %s"),$item[0]["chaosname"]).'" alt="'.sprintf(_("Go to %s"),$item[0]["chaosname"]).'"  /></a></span>';
+			$html .= '</div>';
+			if ($full) {
 				$html .= $this->getItemvisualization($item[0]); 
-			$html .= '<div class="item-description">'.$item[0]["description"].'</div>';
+				$descriptiontext = $item[0]["description"];
+			} else {
+				$descriptiontext = substr($item[0]["description"],0,30);
+			}
+			$html .= '<div class="item-description">&nbsp;'.$descriptiontext.'</div>';
 			$html .= '<div class="item-link"><a href="'.$item[0]["url"].'" title="'.$item[0]["name"].'">'._("Open").'</a></div>';
 			$html .= '<div class="item-tags">';
-			$html .= _("Tags: ")."<span>";
-			foreach ($item as $it) {
-				$html .= '<a href="?p=tag&tag='.$it["tag"].'" title="'.sprintf(_("Items tagged with %s"),$it["tag"]).'">'.$it["tag"].'</a>, ';
+			$html .= '<img src="images/tags.png" title="'._("Tags").'" alt="'._("Tags").'"  /> <span> ';
+							$tags = $this->db->query("SELECT tag.id, tag.tag FROM item_tag inner join (tag) on (item_tag.idtag=tag.id) WHERE iditem=".$id);
+			foreach ($tags as $tag) {
+				$html .= '<a href="?p=tag&tag='.$tag["tag"].'" title="'.sprintf(_("Items tagged with %s"),$tag["tag"]).'">'.$tag["tag"].'</a>, ';
 			}
 			$html = rtrim($html,", ");
 			$html .= '</span></div>';
 			$html .= '</div>';
 		}
+		
+		return $html;
+	}
+	
+	/**
+	* getItemJson
+	* Given an id returns a block with the item
+	*/
+	public function getItemJson ($id) {
+		$item = $this->db->query("select chaos.name as chaosname, item.*, item_type.name as typename, user.login from item left join chaos on chaos.id=item.idchaos inner join item_type on item.idtype=item_type.id  left join user on user.id=item.iduser where item.id=".$id);
+
+		if (count($item) &&  (($_SESSION["iduser"] == $item[0]["iduser"]) || (session_id() == $item[0]["sessionid"]))) {
+			$html .= '{ "Id" : "'.$id.'" ,';
+			$html .= ' "Chaos" : "'.$item[0]["idchaos"].'" ,';
+			$html .= ' "Name" : "'.$item[0]["name"].'" ,';
+			$html .= ' "Description" : "'.$item[0]["description"].'" ,';
+			$html .= ' "Url" : "'.$item[0]["url"].'" ,';
+			$html .= ' "Idtype" : "'.$item[0]["idtype"].'" ,';
+			$html .= ' "Tags" : "';
+			$tags = $this->db->query("SELECT tag.id, tag.tag FROM item_tag inner join (tag) on (item_tag.idtag=tag.id) WHERE iditem=".$id);
+			foreach ($tags as $tag) {
+				$html .= $tag["tag"].', ';
+			}
+			$html = rtrim($html,", ");
+			$html .= '"';
+		} else {
+			$html = '{ "Result" : "Error" ';
+			}
+
+		$html .= ' }';
 		
 		return $html;
 	}

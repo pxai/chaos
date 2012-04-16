@@ -1,9 +1,13 @@
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you'); ?>
+
 <div id="dialogupload" class="dialog">
 	<form>
 	<fieldset>
 		<span id="uploadlog" class="log"></span>
 		<input type="hidden" name="chaosid" id="chaosid" value="<?=$chaos->current["id"]?>" />
 		<input type="hidden" name="chaosuploadcode" id="chaosuploadcode" value="" />
+		<input type="hidden" name="updateid" id="updateid" value="" />
+		<input type="hidden" name="uploadtype" id="uploadtype" value="" />
 		<label for="uploadname" class="required">* <?=_("Name")?></label><br />
 		<input type="text" name="uploadname" id="uploadname" value="" size="20" /><span id="uploadnamelog" class="log"></span><br />
 		<label for="uploaddescription"><?=_("Description")?></label><br />

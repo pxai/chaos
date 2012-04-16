@@ -1,4 +1,4 @@
-<?php
+<?php  
 	/**
 	* create.php
 	* dynamic javascript spawned by the chaos
@@ -9,6 +9,7 @@
 $(document).ready(function() {
 	$("#privatechaosform").css("display","none");
 	
+	var chaostype = 3;
 	var islogged = <?=($user->logged)?"true":"false";?>;
 			
 //	$("#createchaos").click(function(e){
@@ -19,13 +20,6 @@ $(document).ready(function() {
 		$("#chaosname").css("background-color","");
 		$("#chaosname").val("");
 		$("#chaosnamelog").text("");
-		//$("#securityquestiondiv").css("display","none");
-		$("#securityquestion").css("background-color","");
-		$("#securityquestion").val("");
-		$("#securityquestionlog").text("");
-		$("#securityanswer").css("background-color","");
-		$("#securityanswer").val("");
-		$("#securityanswerlog").text("");
 		$("#captcha").val("");
 		$("#captcha").css("background-color","");
 		$("#privatechaos").val("0");
@@ -54,25 +48,23 @@ $(document).ready(function() {
 					
 	$("#privatechaos").click(function() {
 		if ($("#privatechaos").is(":checked")) {
-			$("#privatechaos").val("1");
-			$("#securityquestiondiv").css("display","block");
-		} else {
-			$("#privatechaos").val("0");
-			if (islogged)
-				$("#securityquestiondiv").css("display","none");
+			chaostype = 1;
 		}
+	});
+
+	$("#publicchaos").click(function() {
+		if ($("#publicchaos").is(":checked")) {
+			chaostype = 2;
+		} 
 	});
 	
 	$("#anonymouschaos").click(function() {
 		if ($("#anonymouschaos").is(":checked")) {
-			$("#anonymouschaos").val("1");
-			$("#securityquestiondiv").css("display","block");
-		} else {
-			$("#anonymouschaos").val("0");
-			$("#securityquestiondiv").css("display","none");
+			chaostype = 3;
 		}
 	});
 
+	
 	$("#chaosname").blur(function() {
 		if (trim($("#chaosname").val()) != "") {
 			$("#chaosname").css("background-color","lightgreen");
@@ -97,7 +89,7 @@ $(document).ready(function() {
 		var result = $.ajax({
    			type: "POST",
    			url: "index.php?p=ajax/createchaos",
-   			data: "chaosname="+$("#chaosname").val()+"&privatechaos="+$("#privatechaos").val()+"&anonymouschaos="+$("#anonymouschaos").val()+"&securityquestion="+$("#securityquestion").val()+"&securityanswer="+$("#securityanswer").val()+"&captchakey="+$("#captchakey").val()+"&captcha="+$("#captcha").val(),
+   			data: "chaosname="+$("#chaosname").val()+"&chaostype="+chaostype+"&captchakey="+$("#captchakey").val()+"&captcha="+$("#captcha").val(),
    			dataType:"json",
    			success: function(data){
 
@@ -123,16 +115,6 @@ $(document).ready(function() {
 							$("#chaosname").css("background-color","yellow");
 						}
 						
-						if (data.securityquestion == "incorrect") {
-							$("#createlog").text("<?=_("Error creating chaos.")?><br />");
-							$("#securityquestionlog").text("<?=_("Security question can't be blank")?>");
-							$("#securityquestion").css("background-color","yellow");
-						}
-						if (data.securityanswer == "incorrect") {
-							$("#createlog").text("<?=_("Error creating chaos.")?><br />");
-							$("#securityanswerlog").text("<?=_("Security answer can't be blank")?>");
-							$("#securityanswer").css("background-color","yellow");
-						}
 					}
 
    			}

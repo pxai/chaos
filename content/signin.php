@@ -1,6 +1,8 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 
 	$errors = array();
+
 	
 	if ($_POST["signinbutton"] != "") { 
 		if (!preg_match($config["rx-username"],$_POST["login"]) && !preg_match($config["rx-email"],$_POST["login"])) {

@@ -19,6 +19,55 @@ function rtrim(str, chars) {
 }
 
 $(document).ready(function() {
+
+		function split( val ) {
+			return val.split( /,\s*/ );
+		}
+		
+		function extractLast( term ) {
+			return split( term ).pop();
+		}
+		
+		$("body").scroll( function(event){
+							alert("vamos nena dale");
+						});
+
+		$( "#uploadtags" ).bind( "keydown", function( event ) {
+				if ( event.keyCode === $.ui.keyCode.TAB &&
+						$( this ).data( "autocomplete" ).menu.active ) {
+					event.preventDefault();
+				}
+			})
+			.autocomplete({
+				source: function( request, response ) {
+
+					$.getJSON( "index.php?p=ajax/gettags", {
+						term: extractLast( request.term )
+					}, response );
+				},
+				search: function() {
+					// custom minLength
+					var term = extractLast( this.value );
+					if ( term.length < 2 ) {
+						return false;
+					}
+				},
+				focus: function() {
+					// prevent value inserted on focus
+					return false;
+				},
+				select: function( event, ui ) {
+					var terms = split( this.value );
+					// remove the current input
+					terms.pop();
+					// add the selected item
+					terms.push( ui.item.value );
+					// add placeholder to get the comma-and-space at the end
+					terms.push( "" );
+					this.value = terms.join( ", " );
+					return false;
+				}
+			});	
 	
 	$("#usericon").click(function() {
 		$("#ddownuser").css("display","block");
@@ -28,10 +77,12 @@ $(document).ready(function() {
 					autoOpen: false,
 					title: "",
 					width: 600,
+					height: 500,
 					modal: true
 		});
 		
-		$(".item").click(function (e) {
+		$(".item").dblclick(function (e) {
+			e.preventDefault();
 			var id = $(this).attr("id").split("-")[1];
    		$("#showitem").html("");
 			var result = $.ajax({

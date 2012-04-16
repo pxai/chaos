@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 /**
 * create_ajax.php
 * ajax handler for chaos creation
@@ -12,6 +13,7 @@
 $sql = "";
 $exist = false;
 $errors = "";
+$allowedtypes = array(1,2,3);
 
 $_POST["chaosname"] = strtolower($_POST["chaosname"]);
 
@@ -25,21 +27,13 @@ if (preg_match($config["rx-chaosname"],$_POST["chaosname"]) ) {
 	}
 
 	// if user is not logged, force anonymous.
-	$_POST["anonymouschaos"] = (!$user->logged)?1:$_POST["anonymouschaos"];
-	$needsquestion = (!$user->logged || $_POST["anonymouschaos"]==1);
-	
-	if ($needsquestion && trim($_POST["securityquestion"]) == "") {
-		$errors .= ' "securityquestion" : "incorrect",';
-	}
-
-	if ($needsquestion && trim($_POST["securityanswer"]) == "") {
-		$errors .= ' "securityanswer" : "incorrect",';
-	}
+	$chaostype = ($user->logged && in_array($_POST["chaostype"],$allowedtypes))?$_POST["chaostype"]:3;
 
 	$errors = rtrim($errors,",");
 	
 	if (!$errors) {
-		$result = $chaos->createChaos($_POST["chaosname"],$_POST["privatechaos"],$_POST["anonymouschaos"],$_POST["securityquestion"],$_POST["securityanswer"]);
+		$result = $chaos->createChaos($_POST["chaosname"],$chaostype);
+		$captcha->drop($_POST["captchakey"]);
 	}
 } else {
 		$errors .= ' "name" : "incorrect"';

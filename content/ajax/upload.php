@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 /**
 * create_ajax.php
 * ajax handler for upload
@@ -21,6 +22,10 @@ $linkneeded = array(5,6,8);
 $isupdate = (preg_match("/^[0-9]+$/",$_POST["updateid"]))?true:false;
 $isdelete = (preg_match("/^[0-9]+$/",$_POST["deleteid"]))?true:false;
 
+if (!$chaos->hasPermission($idchaos,$_SESSION["iduser"])) {
+	exit;
+}
+
 // Is a delete?
 if ($isdelete) {
 	if ($result = $item->deleteItem($_POST["deleteid"])) {
@@ -32,13 +37,13 @@ if ($isdelete) {
 } else {
 
 // check name
-if (!preg_match("/^[A-Za-z0-9]+[A-Z\sa-z0-9\-\_\.]*$/",$_POST["uploadname"]))  {
+if (!preg_match($config["rx-name"],$_POST["uploadname"]))  {
 			$errors .= ' "name" : "incorrect",';
 }
 
 
 // check tags
-if ($_POST["uploadtags"]!="" && !preg_match("/^[A-Za-z0-9]+[A-Za-z0-9\s\-\_\.\,]*$/",$_POST["uploadtags"])) {
+if ($_POST["uploadtags"]!="" && !preg_match($config["rx-tags"],$_POST["uploadtags"])) {
 			$errors .= ' "tags" : "incorrect",';
 } 
 
@@ -80,7 +85,7 @@ if (!$errors) {
 	}
 
 	
-	//$captcha->drop($_POST["captchakey"]);
+	$captcha->drop($_POST["captchakey"]);
 
 	$url = $_POST["url"]; 
 	

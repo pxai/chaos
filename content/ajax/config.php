@@ -1,4 +1,5 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 /**
 * create_ajax.php
 * ajax handler for chaos creation
@@ -33,11 +34,11 @@ if (preg_match("/^[0-9]+$/",$_POST["chaosid"]) ) {
 		$errors .= ' "captcha" : "incorrect",';
 	} 
 	
-	if (!preg_match("/^\#[a-fA-F0-9]{3,6}$/",$_POST["bgcolor"]) ) {
+	if (!preg_match("/^[a-fA-F0-9]{3,6}$/",$_POST["bgcolor"]) ) {
 		$errors .= ' "bgcolor" : "incorrect", ';
 	}
 
-	if (!preg_match("/^\#[a-fA-F0-9]{3,6}$/",$_POST["fgcolor"]) ) {
+	if (!preg_match("/^[a-fA-F0-9]{3,6}$/",$_POST["fgcolor"]) ) {
 		$errors .= ' "fgcolor" : "incorrect", ';
 	}
 
@@ -46,7 +47,7 @@ if (preg_match("/^[0-9]+$/",$_POST["chaosid"]) ) {
 	}
 
 
-	if (!preg_match($config["rx-url"],$_POST["bgimage"]) ) {
+	if ($_POST["bgimage"] && !preg_match($config["rx-url"],$_POST["bgimage"]) ) {
 		$errors .= ' "bgimage" : "incorrect", ';
 	}
 
@@ -69,6 +70,7 @@ if (preg_match("/^[0-9]+$/",$_POST["chaosid"]) ) {
 	
 	if (!$errors) {
 		$result = $chaos->configChaos($_POST["chaosid"],$_POST["bgcolor"],$_POST["fgcolor"],$_POST["bgimage"],$_POST["algorythm"]);
+		$captcha->drop($_POST["captchakey"]);
 	}
 } else {
 		$errors .= ' "id" : "incorrect"';

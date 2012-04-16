@@ -1,4 +1,4 @@
-<?php
+<?php  
 	/**
 	* config.php
 	* dynamic javascript spawned by the chaos

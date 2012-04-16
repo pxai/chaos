@@ -1,3 +1,5 @@
+<?php if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you'); ?>
+
 <div id="dialoguploaddrop" class="dialog">
 	<form name="" method="post" action="index.php?p=ajax/dragdrop" enctype="multipart/form-data">
 	<fieldset>

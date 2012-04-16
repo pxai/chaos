@@ -1,9 +1,17 @@
+<?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+ if (!$chaos->hasReadPermission($chaos->current["id"],$_SESSION["iduser"])) {
+	 header("Location: ?");
+	}
+?>
 <?php
 	include_once "content/head.php";
 ?>
 <div id="items">
 <div id="div1" ondrop="drop(event)"
 ondragover="allowDrop(event)">
+
+<?php include_once "content/upload.php"; ?>
+<?php include_once "content/uploaddrop.php"; ?>
 <?php
 
 	switch ($op) {

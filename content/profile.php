@@ -1,4 +1,5 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
+
 	$user->loginrequired();
 	$errors = array();
 
@@ -52,6 +53,9 @@
 
 		<input type="submit" name="profilebutton" id="profilebutton" value="<?=_("Update profile")?>" /><br />
 	</fieldset>
+	<?php
+		echo $user->showInvitations($_SESSION["iduser"]);
+	?>
 </form>
 </div>
 <?php
