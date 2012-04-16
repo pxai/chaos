@@ -1,0 +1,31 @@
+TODO list:
+1.0.1
+-----
++ OK FEATURE show all new items on first chaos.
++ OK BUG config chaos
++ OK Allow any kind of name
++ OK BUG disallow anon edit on any item
++ OK BUG Disallow access to private chaos.
++ OK BUG Disable double dialog on item click.
++ OK BUG load item data from db.
++ OK BUG newly items live function.
++ OK Change items, check desc, uploaded file
++ OK FEATURE show by tagname
++ OK FEATURE Show list of chaos on user profile
++ OK FEATURE Invite friends to private/public chaos
++ OK FEATURE Allow multiple editors in private/public chaos: search, tag, upload, chaos
++ OK TODO: add direct access denial to all scripts
++ OK Change chaos name position
++ OK FEATURE propose edit when new item.
+- FEATURE pagination when scroll
+- FEATURE disable edit when time passed
+
+1.1.1 release
+-----------
+- FEATURE allow drag and drop
+- FEATURE allow user vote control by ip
+- FEATURE allow user comment on item
+- FEATURE RSS pop up
+- FEATURE js algorythm
+- FEATURE color chooser for config.
+- FEATURE ban inviters
