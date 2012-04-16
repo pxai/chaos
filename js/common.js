@@ -106,7 +106,7 @@ $(document).ready(function() {
 			var result = $.ajax({
    			type: "GET",
    			url: "index.php?p=ajax/item",
-   			data: "op=getitem&last="+currentpage,
+   			data: "op=getitem&last="+currentpage+"&chaos="+$(this).attr("href"),
    			dataType:"html",
    			success: function(data){
 
