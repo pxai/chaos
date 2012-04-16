@@ -178,6 +178,7 @@ class LibItem {
 	public function getLasts($page = 0, $chaos= 0, $howmany=10 ) {
 		$html = "";
 		$this->current["id"] = $chaos;
+		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:-1;
 		if (!$chaos) {
 			$sql = "select item.id from item left join chaos on item.idchaos=chaos.id where idchaos=0 or chaostype>1 order by item.created desc limit ".$page.",".$howmany;
 		}else {
