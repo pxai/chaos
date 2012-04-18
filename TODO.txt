@@ -17,7 +17,7 @@ TODO list:
 + OK TODO: add direct access denial to all scripts
 + OK Change chaos name position
 + OK FEATURE propose edit when new item.
-- FEATURE pagination when scroll
+- BUG check pagination permissions
 - FEATURE disable edit when time passed
 
 1.1.1 release

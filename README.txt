@@ -5,7 +5,7 @@ To install just:
 1. Create a mysql database
 2. Import chaos.sql
 3. Configure config.php
-4. Enjoy!
+4. Make upload/ dir writable by web server
 
 https://github.com/pxai/chaos
 
