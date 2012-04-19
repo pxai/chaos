@@ -54,7 +54,7 @@ if (preg_match("/^[0-9]+$/",$_POST["chaosid"]) && preg_match("/^[0-9A-Za-z]+$/",
 $chaos->getChaos($idchaos);
 
 if (!$chaos->hasPermission($idchaos,$_SESSION["iduser"])) {
-		$errors .= ' "permission" : "denied", ';
+		$errors .= ' "permission" : "denied", ' ;
 }
 
 if (!$errors && $_POST["url"] != "") {

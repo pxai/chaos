@@ -81,7 +81,7 @@ class LibItem {
 	* returns newly created id
 	*/
 	public function updateItem ($iditem,$uploadname,$uploaddescription,$url) {
-		$linkneeded = array(4,5,6,8);
+		$linkneeded = array(1,4,5,6,8);
 		$item = $this->selectItem($iditem);
 		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:0;
 		if (in_array($item["idtype"],$linkneeded)) 
@@ -89,6 +89,7 @@ class LibItem {
 		else		
 			$sql = "update item set name='".$uploadname."',description='".$uploaddescription."' where id=".$iditem ." and ((iduser=" . $iduser.") or (sessionid='".session_id()."'))";
 
+		//echo $sql; exit;
 		$this->db->nonquery($sql);
 		$cleanurl = $this->genCleanUrl($iditem, $uploadname);
 		

@@ -12,6 +12,7 @@ class LibChaos {
 	var $db;
 	var $current;
 	var $sec;
+	var $log;
 	/**
 	* __construct
 	*
@@ -86,8 +87,10 @@ class LibChaos {
 	 */
 	public function hasPermission ($idchaos,$iduser) {
 			$iduser = (!$iduser)?0:$iduser;
-		if ($idchaos!="" || $idchaos) {
-			$chaosdata = $this->db->query("select * from chaos left join chaos_user on chaos_user.idchaos=chaos.id where chaos.id=".$idchaos." and (chaostype=3 or chaos.iduser=".$iduser." or chaos_user.iduser=".$iduser.")");
+		if ($idchaos) {
+			$sql = "select * from chaos left join chaos_user on chaos_user.idchaos=chaos.id where chaos.id=".$idchaos." and (chaostype=3 or chaos.iduser=".$iduser." or chaos_user.iduser=".$iduser.")";
+			//$this->log = $sql;
+			$chaosdata = $this->db->query($sql);
 			
 			// if owner, or user with perm, or public
 			if (count($chaosdata)) {
