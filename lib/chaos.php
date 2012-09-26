@@ -1,8 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
 
 /**
-* db.php
+* chaos.php
 * the chaos has its own class
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 
 

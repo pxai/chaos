@@ -1,8 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you');
 
 /**
-* db.php
-* the chaos also needs somewhere to save its content
+* captcha.php
+* the chaos also needs captchas
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 
 

@@ -8,6 +8,7 @@
 	//echo sprintf(_("Total queries: %s"),$totalqueries);
 	}
 ?>
+<div id="signature">chaos by Pello Altadill - <a href="http://pello.info" title="Visit me">pello.info</a></div>
 </footer>
 </body>
 </html>

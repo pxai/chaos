@@ -2,8 +2,11 @@
 
 
 /**
-* mail
-* sending mails from chaos
+* util
+* utils from chaos for chaos
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 	
 class LibUtil {

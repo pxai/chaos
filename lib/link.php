@@ -4,6 +4,9 @@
 /**
 * link.php
 * building links for the chaos
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 
 class LibLink {

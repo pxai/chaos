@@ -3,6 +3,9 @@
 /**
 * autoload.php
 * the chaos needs to autoload classes
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 function __autoload($class) {
     $path = strtolower(preg_replace('/([a-z])([A-Z])/', '$1/$2', $class));

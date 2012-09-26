@@ -4,6 +4,9 @@
 /**
 * LibTags
 * a chaos with tags would be less chaotic or not...
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 
 class LibTags   {

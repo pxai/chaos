@@ -1,8 +1,11 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you'); 
 
 /**
 * config.php
 * even the chaos has a configuration file.
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 
 $config["db"] = "chaos";

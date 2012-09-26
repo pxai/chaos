@@ -2,7 +2,9 @@
 
 	/**
 	* css owned by the chaos
-	*
+	* @author Pello Xabier Altadill Izura - http://pello.info
+	* 
+	* https://github.com/pxai/chaos
 	*/
 
 	header("Content-type: text/css");
@@ -291,6 +293,17 @@ border-radius:1em;
 	border: 0.1em solid white;
 	display: none;	
 }
+
+#signature {
+		margin-top: 5em;
+		color: #eee;
+		font-size: 9pt;
+		text-align: center;
+	}
+
+#signature a {
+		color: #eee;
+	}
 
 /**************************
 * tab

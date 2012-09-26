@@ -1,5 +1,4 @@
 <?php  if ( ! defined('BASEPATH')) exit('Infinite suffering and everlasting pain, Hell awaits for you'); ?>
-
 <script type="text/javascript" src="js/fastupload.php?p=<?=$chaos->current["name"]?>"></script>
 <div id="dialogupload" class="signform">
 	<div class="formtitle"><?=_("Upload")?></div>

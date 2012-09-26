@@ -2,7 +2,10 @@
 
 /**
 * sec.php
-* chaotic but let's trye to make it secure
+* chaotic but let's try to make it secure
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 
 

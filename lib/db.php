@@ -3,6 +3,9 @@
 /**
 * db.php
 * the chaos also needs somewhere to save its content
+* @author Pello Xabier Altadill Izura - http://pello.info
+* 
+* https://github.com/pxai/chaos
 */
 
 

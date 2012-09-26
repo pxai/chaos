@@ -12,3 +12,5 @@ https://github.com/pxai/chaos
 Visit live chaos
 http://chaos.cx
 
+author: Pello Xabier Altadill Izura
+http://pello.info
