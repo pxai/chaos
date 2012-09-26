@@ -98,7 +98,7 @@ if (!$errors && $_POST["url"] != "") {
 		$newfilename = $sec->randomstring(16);
 
 		$upload_dir = $config["upload_dir"]. "items/".($newid %1024);
-		@mkdir($upload_dir,0777,true);
+		mkdir($upload_dir,0777,true);
 		$upload_file = $upload_dir."/".$newfilename.".".$ext;
 				 
 
@@ -111,10 +111,12 @@ if (!$errors && $_POST["url"] != "") {
 				//echo '{ "Result" : "Success" , "Newid" : "'.$newid.'" , "Name" : "'.$_FILES['upload_file']['name'].'", "Ext" : "'.$ext.'","Size" : "'.$_FILES['upload_file']['size'].'",  }';
 				header("Location: ?p=preview&new=".$newid);
 			} else {
-				$errors .= ' "file" : "Error moving file ", ';
+				$errors .= ' "file" : "Error moving file '.$upload_file.'", ';
+				$db->nonquery("delete from item where id=" .$newid);
 			}
 		} else {
-				$errors .= ' "file" : "Error moving file", ';
+				$errors .= ' "file" : "Error on uploaded file", ';
+				$db->nonquery("delete from item where id=" .$newid);
 		}
 	} else {
 				$errors .= ' "file" : "Error uploading file", ';

@@ -63,7 +63,7 @@ class LibItem {
 	public function createItem ($idchaos,$uploadname,$uploaddescription,$uploadtype,$url) {
 
 		$iduser = ($_SESSION["iduser"])?$_SESSION["iduser"]:0;
-		$sessionid = (!$iduser)?"":session_id();
+		$sessionid = ($iduser)?"":session_id();
 		$sql = "insert into item (idchaos,name,description,idtype,url,iduser,sessionid) values (".$idchaos.",'".$uploadname."','".$uploaddescription."',".$uploadtype.",'".$url."',".$iduser.",'".$sessionid."')";
 		$this->db->nonquery($sql);
 		$newid = $this->db->insert_id(); 
