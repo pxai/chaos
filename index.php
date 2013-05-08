@@ -2,9 +2,6 @@
 /**
 * index.php
 * the chaos has an index but who knows where it goes after
-* @author Pello Xabier Altadill Izura - http://pello.info
-* 
-* https://github.com/pxai/chaos
 */
 session_start();
 
